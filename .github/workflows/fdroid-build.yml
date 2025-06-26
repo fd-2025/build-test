@@ -1,0 +1,71 @@
+name: fdroid build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  show-system-info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: whoami
+        run: whoami
+
+      - name: Show current working directory
+        run: |
+          echo "### Current working directory 1:"
+          pwd
+
+      - name: Show RAM information
+        run: |
+          echo "### RAM information 1:"
+          free -h
+
+      - name: Show disk space
+        run: |
+          echo "### Disk space 1:"
+          df -h
+
+      - name: Show directory structure from root
+        run: |
+          echo "### Directory structure 1 from root (/), depth 2:"
+          tree -L 2 / || (sudo apt-get update && sudo apt-get install tree -y && tree -L 2 /)
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: registry.gitlab.com/fdroid/fdroidserver:buildserver-bookworm
+
+    env:
+      ANDROID_HOME: /opt/android-sdk
+      ANDROID_SDK_ROOT: /opt/android-sdk
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: whoami
+        run: whoami
+
+      - name: Show current working directory
+        run: |
+          echo "### Current working directory 2:"
+          pwd
+
+      - name: Show RAM information
+        run: |
+          echo "### RAM information 2:"
+          free -h
+
+      - name: Show disk space
+        run: |
+          echo "### Disk space 2:"
+          df -h
+
+      - name: Show directory structure from root
+        run: |
+          echo "### Directory structure 2 from root (/), depth 2:"
+          tree -L 2 / || (sudo apt-get update && sudo apt-get install tree -y && tree -L 2 /)
