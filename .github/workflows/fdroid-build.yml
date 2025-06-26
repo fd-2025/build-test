@@ -29,6 +29,12 @@ jobs:
           echo "### RAM information:"
           free -h
 
+      - name: Show CPU information
+        continue-on-error: true
+        run: |
+          echo "### CPU information:"
+          lscpu
+
       - name: Show disk space
         continue-on-error: true
         run: |
@@ -89,6 +95,12 @@ jobs:
         run: |
           echo "### RAM information:"
           free -h
+
+      - name: Show CPU information
+        continue-on-error: true
+        run: |
+          echo "### CPU information:"
+          lscpu
 
       - name: Show disk space
         continue-on-error: true
