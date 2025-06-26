@@ -47,12 +47,6 @@ jobs:
           echo "### lsb_release:"
           lsb_release -a
 
-      - name: android-sdk path
-        continue-on-error: true
-        run: |
-          echo "### android-sdk path:"
-          ls -la /opt/android-sdk
-
       - name: apt
         continue-on-error: true
         run: |
