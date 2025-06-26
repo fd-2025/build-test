@@ -30,6 +30,34 @@ jobs:
           echo "### Disk space 1:"
           df -h
 
+      - name: uname
+        run: |
+          echo "### uname -a 1:"
+          uname -a
+
+      - name: lsb_release
+        run: |
+          echo "### lsb_release 1:"
+          lsb_release -a
+
+      - name: fdroidserver path
+        run: |
+          echo "### fdroidserver path 1:"
+          /home/vagrant/fdroidserver
+
+      - name: android-sdk path
+        run: |
+          echo "### android-sdk path 1:"
+          /opt/android-sdk
+
+      - name: apt
+        run: |
+          echo "### apt 1:"
+          apt-get update
+          apt-get dist-upgrade
+          apt-get install swing
+          apt-get install cmake
+
       - name: Show directory structure from root
         run: |
           echo "### Directory structure 1 from root (/), depth 2:"
@@ -64,6 +92,34 @@ jobs:
         run: |
           echo "### Disk space 2:"
           df -h
+
+      - name: uname
+        run: |
+          echo "### uname -a 2:"
+          uname -a
+
+      - name: lsb_release
+        run: |
+          echo "### lsb_release 2:"
+          lsb_release -a
+
+      - name: fdroidserver path
+        run: |
+          echo "### fdroidserver path 2:"
+          /home/vagrant/fdroidserver
+
+      - name: android-sdk path
+        run: |
+          echo "### android-sdk path 2:"
+          /opt/android-sdk
+
+      - name: apt
+        run: |
+          echo "### apt 2:"
+          apt-get update
+          apt-get dist-upgrade
+          apt-get install swing
+          apt-get install cmake
 
       - name: Show directory structure from root
         run: |
