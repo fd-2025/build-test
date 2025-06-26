@@ -59,8 +59,7 @@ jobs:
           echo "### apt:"
           apt-get update
           apt-get dist-upgrade
-          apt-get install swing
-          apt-get install cmake
+          apt-get install swig cmake lsb-release tree
 
       - name: Show directory structure from root
         continue-on-error: true
@@ -115,7 +114,7 @@ jobs:
           echo "### apt:"
           apt-get update
           apt-get dist-upgrade
-          apt-get install swig cmake lsb-release
+          apt-get install swig cmake lsb-release tree
 
       - name: lsb_release
         continue-on-error: true
@@ -127,16 +126,16 @@ jobs:
         continue-on-error: true
         run: |
           echo "### fdroidserver path:"
-          /home/vagrant/fdroidserver
+          ls -la /home/vagrant/fdroidserver
 
       - name: android-sdk path
         continue-on-error: true
         run: |
           echo "### android-sdk path:"
-          /opt/android-sdk
+          ls -la /opt/android-sdk
 
       - name: Show directory structure from root
         continue-on-error: true
         run: |
           echo "### Directory structure from root (/), depth 3:"
-          tree -L 3 / || (sudo apt-get update && sudo apt-get install tree -y && tree -L 3 /)
+          tree -L 3
