@@ -51,15 +51,15 @@ jobs:
         continue-on-error: true
         run: |
           echo "### android-sdk path:"
-          /opt/android-sdk
+          ls -la /opt/android-sdk
 
       - name: apt
         continue-on-error: true
         run: |
           echo "### apt:"
-          apt-get update
-          apt-get dist-upgrade
-          apt-get install swig cmake lsb-release tree
+          sudo apt-get update
+          sudo apt-get dist-upgrade
+          sudo apt-get install swig cmake lsb-release tree
 
       - name: Show directory structure from root
         continue-on-error: true
@@ -114,7 +114,10 @@ jobs:
           echo "### apt:"
           apt-get update
           apt-get dist-upgrade
-          apt-get install swig cmake lsb-release tree
+          apt-get install -y lsb-release tree
+          apt-get install -y ant g++ clang build-essential swig
+          apt-get install -y cmake automake zip
+          apt-get install -y byacc libpcre2-dev python-is-python3
 
       - name: lsb_release
         continue-on-error: true
@@ -133,9 +136,10 @@ jobs:
         run: |
           echo "### android-sdk path:"
           ls -la /opt/android-sdk
+          sdkmanager "platform-tools" "build-tools;31.0.0"
 
       - name: Show directory structure from root
         continue-on-error: true
         run: |
-          echo "### Directory structure from root (/), depth 3:"
-          tree -L 3
+          echo "### Directory structure from root (/), depth 4:"
+          tree -L 4
