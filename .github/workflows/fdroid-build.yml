@@ -165,11 +165,10 @@ jobs:
           echo "### Build:"
           su vagrant
           git clone https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
-          pushd OsmAnd-submodules
+          cd OsmAnd-submodules
           git submodule init
           git submodule update
           ./prebuild.sh "5.1.2" "5102" arm64
           ./build.sh arm64
           cd android/Osmand
           gradle assembleAndroidFullOpenglArm64Release
-          popd
