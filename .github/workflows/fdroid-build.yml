@@ -125,7 +125,7 @@ jobs:
           apt-get install -y ant g++ clang build-essential swig
           apt-get install -y cmake automake zip
           apt-get install -y byacc libpcre2-dev python-is-python3
-          apt-get install -y openjdk-17-jdk-headless
+          apt-get install -y openjdk-17-jdk-headless gradle
           update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
           which java
           which javac
@@ -164,6 +164,8 @@ jobs:
         run: |
           echo "### Build:"
           su vagrant
+          whoami
+          pwd
           git clone https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
           cd OsmAnd-submodules
           git submodule init
