@@ -109,6 +109,14 @@ jobs:
           echo "### uname -a:"
           uname -a
 
+      - name: apt
+        continue-on-error: true
+        run: |
+          echo "### apt:"
+          apt-get update
+          apt-get dist-upgrade
+          apt-get install swig cmake lsb-release
+
       - name: lsb_release
         continue-on-error: true
         run: |
@@ -126,15 +134,6 @@ jobs:
         run: |
           echo "### android-sdk path:"
           /opt/android-sdk
-
-      - name: apt
-        continue-on-error: true
-        run: |
-          echo "### apt:"
-          apt-get update
-          apt-get dist-upgrade
-          apt-get install swing
-          apt-get install cmake
 
       - name: Show directory structure from root
         continue-on-error: true
