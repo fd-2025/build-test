@@ -158,3 +158,18 @@ jobs:
         run: |
           echo "### Directory structure from root (/), depth 4:"
           tree -L 4 /
+
+      - name: build
+        continue-on-error: true
+        run: |
+          echo "### Build:"
+          su vagrant
+          git clone https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
+          pushd OsmAnd-submodules
+          git submodule init
+          git submodule update
+          ./prebuild.sh "5.1.2" "5102" arm64
+          ./build.sh arm64
+          cd android/Osmand
+          gradle assembleAndroidFullOpenglArm64Release
+          popd
