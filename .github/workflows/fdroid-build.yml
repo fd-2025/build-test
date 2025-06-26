@@ -131,7 +131,7 @@ jobs:
         run: |
           echo "### android-sdk path:"
           ls -la /opt/android-sdk
-          sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;23.2.8568313"
+          sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
 
       - name: Show directory structure from root
         continue-on-error: true
