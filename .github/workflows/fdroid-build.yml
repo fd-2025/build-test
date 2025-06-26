@@ -124,6 +124,7 @@ jobs:
         run: |
           echo "### lsb_release:"
           lsb_release -a
+          cat /etc/passwd
 
       - name: fdroidserver path
         continue-on-error: true
@@ -142,4 +143,4 @@ jobs:
         continue-on-error: true
         run: |
           echo "### Directory structure from root (/), depth 4:"
-          tree -L 4
+          tree -L 4 /
