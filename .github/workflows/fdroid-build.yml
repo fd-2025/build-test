@@ -7,60 +7,68 @@ on:
 jobs:
   show-system-info:
     runs-on: ubuntu-latest
-    continue-on-error: true
 
     steps:
       - name: Check out repository
+        continue-on-error: true
         uses: actions/checkout@v4
 
       - name: whoami
+        continue-on-error: true
         run: whoami
 
       - name: Show current working directory
+        continue-on-error: true
         run: |
-          echo "### Current working directory 1:"
+          echo "### Current working directory:"
           pwd
 
       - name: Show RAM information
+        continue-on-error: true
         run: |
-          echo "### RAM information 1:"
+          echo "### RAM information:"
           free -h
 
       - name: Show disk space
+        continue-on-error: true
         run: |
-          echo "### Disk space 1:"
+          echo "### Disk space:"
           df -h
 
       - name: uname
+        continue-on-error: true
         run: |
-          echo "### uname -a 1:"
+          echo "### uname -a:"
           uname -a
 
       - name: lsb_release
+        continue-on-error: true
         run: |
-          echo "### lsb_release 1:"
+          echo "### lsb_release:"
           lsb_release -a
 
       - name: android-sdk path
+        continue-on-error: true
         run: |
-          echo "### android-sdk path 1:"
+          echo "### android-sdk path:"
           /opt/android-sdk
 
       - name: apt
+        continue-on-error: true
         run: |
-          echo "### apt 1:"
+          echo "### apt:"
           apt-get update
           apt-get dist-upgrade
           apt-get install swing
           apt-get install cmake
 
       - name: Show directory structure from root
+        continue-on-error: true
         run: |
-          echo "### Directory structure 1 from root (/), depth 2:"
-          tree -L 2 / || (sudo apt-get update && sudo apt-get install tree -y && tree -L 2 /)
+          echo "### Directory structure from root (/), depth 3:"
+          tree -L 3 / || (sudo apt-get update && sudo apt-get install tree -y && tree -L 3 /)
   build:
     runs-on: ubuntu-latest
-    continue-on-error: true
     container:
       image: registry.gitlab.com/fdroid/fdroidserver:buildserver-bookworm
 
@@ -70,55 +78,66 @@ jobs:
 
     steps:
       - name: Checkout repository
+        continue-on-error: true
         uses: actions/checkout@v4
 
       - name: whoami
+        continue-on-error: true
         run: whoami
 
       - name: Show current working directory
+        continue-on-error: true
         run: |
-          echo "### Current working directory 2:"
+          echo "### Current working directory:"
           pwd
 
       - name: Show RAM information
+        continue-on-error: true
         run: |
-          echo "### RAM information 2:"
+          echo "### RAM information:"
           free -h
 
       - name: Show disk space
+        continue-on-error: true
         run: |
-          echo "### Disk space 2:"
+          echo "### Disk space:"
           df -h
 
       - name: uname
+        continue-on-error: true
         run: |
-          echo "### uname -a 2:"
+          echo "### uname -a:"
           uname -a
 
       - name: lsb_release
+        continue-on-error: true
         run: |
-          echo "### lsb_release 2:"
+          echo "### lsb_release:"
           lsb_release -a
 
       - name: fdroidserver path
+        continue-on-error: true
         run: |
-          echo "### fdroidserver path 2:"
+          echo "### fdroidserver path:"
           /home/vagrant/fdroidserver
 
       - name: android-sdk path
+        continue-on-error: true
         run: |
-          echo "### android-sdk path 2:"
+          echo "### android-sdk path:"
           /opt/android-sdk
 
       - name: apt
+        continue-on-error: true
         run: |
-          echo "### apt 2:"
+          echo "### apt:"
           apt-get update
           apt-get dist-upgrade
           apt-get install swing
           apt-get install cmake
 
       - name: Show directory structure from root
+        continue-on-error: true
         run: |
-          echo "### Directory structure 2 from root (/), depth 2:"
-          tree -L 2 / || (sudo apt-get update && sudo apt-get install tree -y && tree -L 2 /)
+          echo "### Directory structure from root (/), depth 3:"
+          tree -L 3 / || (sudo apt-get update && sudo apt-get install tree -y && tree -L 3 /)
