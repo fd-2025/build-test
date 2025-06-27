@@ -72,8 +72,6 @@ jobs:
     container:
       image: registry.gitlab.com/fdroid/fdroidserver:buildserver-bookworm
 
-    env:
-
     steps:
       - name: Checkout repository
         continue-on-error: true
