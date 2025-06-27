@@ -231,9 +231,13 @@ jobs:
           rm -Rf help/website/images/features.zip
           rm -Rf resources/icons/tools/SVGtoXML/vd-tool
           rm -Rf resources/test-resources/
+          
+          echo "### du begin:"
+          du -h --max-depth=1 . | sort -h -r
+          
           ./prebuild.sh "5.1.2" "5102" arm64
           ./build.sh arm64
-          cd android/Osmand
+          cd android/OsmAnd
           gradle assembleAndroidFullOpenglArm64Release
           
           echo "### Disk space after build:"
