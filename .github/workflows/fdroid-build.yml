@@ -146,7 +146,7 @@ jobs:
           apt-get install -y ant g++ clang build-essential swig
           apt-get install -y cmake automake zip
           apt-get install -y byacc libpcre2-dev python-is-python3
-          apt-get install -y openjdk-17-jdk-headless gradle
+          apt-get install -y openjdk-17-jdk-headless
           
           update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
           which java
