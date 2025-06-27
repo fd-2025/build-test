@@ -240,6 +240,7 @@ jobs:
           
           echo "### Disk space mid build:"
           df -h
+          du -h --max-depth=1 . | sort -h -r
 
       - name: build2
         continue-on-error: true
