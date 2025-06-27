@@ -143,7 +143,7 @@ jobs:
           curl --silent https://gitlab.com/fdroid/fdroidserver/-/archive/master/fdroidserver-master.tar.gz | tar -xz --directory=${FDROIDSERVER} --strip-components=1
           
           apt-get install -y lsb-release tree
-          apt-get install -y g++ clang build-essential swig
+          apt-get install -y ant g++ clang build-essential swig
           apt-get install -y cmake automake zip
           apt-get install -y byacc libpcre2-dev python-is-python3
           apt-get install -y openjdk-17-jdk-headless
