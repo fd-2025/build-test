@@ -73,13 +73,20 @@ jobs:
       image: registry.gitlab.com/fdroid/fdroidserver:buildserver-bookworm
 
     env:
-      ANDROID_HOME: /opt/android-sdk
-      ANDROID_SDK_ROOT: /opt/android-sdk
 
     steps:
       - name: Checkout repository
         continue-on-error: true
         uses: actions/checkout@v4
+
+      - name: Set environment variables
+        run: |
+          echo "ANDROID_HOME=/opt/android-sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=/opt/android-sdk" >> $GITHUB_ENV
+          echo "FDROIDSERVER=/home/vagrant/fdroidserver" >> $GITHUB_ENV
+          echo "PATH=/opt/gradle/bin:/home/vagrant/fdroidserver:$PATH" >> $GITHUB_ENV
+          echo "PYTHONPATH=/home/vagrant/fdroidserver:/home/vagrant/fdroidserver/examples" >> $GITHUB_ENV
+          echo "PYTHONUNBUFFERED=true" >> $GITHUB_ENV
 
       - name: whoami
         continue-on-error: true
@@ -122,16 +129,12 @@ jobs:
           apt-get update
           apt-get dist-upgrade
           
-          export FDROIDSERVER=/home/vagrant/fdroidserver
-          export PATH="/opt/gradle/bin:${FDROIDSERVER}:${PATH}"
           echo "PATH:"
           echo $PATH
           echo "ANDROID_HOME:"
           echo $ANDROID_HOME
           echo "ANDROID_SDK_ROOT:"
           echo $ANDROID_SDK_ROOT
-          export PYTHONPATH="${FDROIDSERVER}:${FDROIDSERVER}/examples"
-          export PYTHONUNBUFFERED=true
           mkdir ${FDROIDSERVER}
           git ls-remote https://gitlab.com/fdroid/fdroidserver.git master
           curl --silent https://gitlab.com/fdroid/fdroidserver/-/archive/master/fdroidserver-master.tar.gz | tar -xz --directory=${FDROIDSERVER} --strip-components=1
