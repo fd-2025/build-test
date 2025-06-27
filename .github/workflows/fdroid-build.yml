@@ -185,6 +185,12 @@ jobs:
           su vagrant
           whoami
           pwd
+          echo "PATH:"
+          echo $PATH
+          echo "ANDROID_HOME:"
+          echo $ANDROID_HOME
+          echo "ANDROID_SDK_ROOT:"
+          echo $ANDROID_SDK_ROOT
           git clone https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
           cd OsmAnd-submodules
           git submodule init
