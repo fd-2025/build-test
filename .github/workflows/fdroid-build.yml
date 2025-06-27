@@ -134,10 +134,16 @@ jobs:
           javac -version
           export FDROIDSERVER=/home/vagrant/fdroidserver
           export PATH="/opt/gradle/bin:${FDROIDSERVER}:${PATH}"
+          echo "PATH:"
           echo $PATH
+          echo "ANDROID_HOME:"
+          echo $ANDROID_HOME
+          echo "ANDROID_SDK_ROOT:"
+          echo $ANDROID_SDK_ROOT
           export PYTHONPATH="${FDROIDSERVER}:${FDROIDSERVER}/examples"
           export PYTHONUNBUFFERED=true
           mkdir ${FDROIDSERVER}
+          git ls-remote https://gitlab.com/fdroid/fdroidserver.git master
           curl --silent https://gitlab.com/fdroid/fdroidserver/-/archive/master/fdroidserver-master.tar.gz | tar -xz --directory=${FDROIDSERVER} --strip-components=1
 
       - name: lsb_release
