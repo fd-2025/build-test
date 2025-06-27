@@ -129,14 +129,15 @@ jobs:
           apt-get update
           apt-get dist-upgrade
           
-          echo "PATH:"
-          echo $PATH
-          echo "ANDROID_HOME:"
-          echo $ANDROID_HOME
-          echo "ANDROID_SDK_ROOT:"
-          echo $ANDROID_SDK_ROOT
-          echo "ANDROID_NDK:"
-          echo $ANDROID_NDK
+          echo "PATH: $PATH"
+          echo "ANDROID_HOME: $ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          echo "ANDROID_SDK: $ANDROID_SDK"
+          echo "ANDROID_NDK: $ANDROID_NDK"
+          echo "FDROIDSERVER: $FDROIDSERVER"
+          echo "PYTHONPATH: $PYTHONPATH"
+          echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
+          
           mkdir ${FDROIDSERVER}
           git ls-remote https://gitlab.com/fdroid/fdroidserver.git master
           curl --silent https://gitlab.com/fdroid/fdroidserver/-/archive/master/fdroidserver-master.tar.gz | tar -xz --directory=${FDROIDSERVER} --strip-components=1
@@ -153,6 +154,8 @@ jobs:
           ls -la /usr/lib/jvm/java-17-openjdk-amd64/bin/java
           java -version
           javac -version
+          
+          sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
 
       - name: lsb_release
         continue-on-error: true
@@ -164,15 +167,20 @@ jobs:
       - name: fdroidserver path
         continue-on-error: true
         run: |
-          echo "### fdroidserver path:"
-          ls -la /home/vagrant/fdroidserver
+          echo "### ls fdroidserver path:"
+          ls -la "$FDROIDSERVER"
 
       - name: android-sdk path
         continue-on-error: true
         run: |
-          echo "### android-sdk path:"
-          ls -la /opt/android-sdk
-          sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+          echo "### ls android-sdk path:"
+          ls -la "$ANDROID_SDK"
+
+      - name: android-ndk path
+        continue-on-error: true
+        run: |
+          echo "### ls android-ndk path:"
+          ls -la "$ANDROID_NDK"
 
       - name: Show directory structure from root
         continue-on-error: true
@@ -200,7 +208,6 @@ jobs:
           ls -la help
           du -sh help
           rm -Rf help
-          ls -la help
           ./prebuild.sh "5.1.2" "5102" arm64
           ./build.sh arm64
           cd android/Osmand
