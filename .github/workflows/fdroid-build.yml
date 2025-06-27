@@ -6,7 +6,7 @@ on:
 
 jobs:
   show-system-info:
-    if: false
+    #if: false
     runs-on: ubuntu-latest
 
     steps:
@@ -60,7 +60,7 @@ jobs:
           echo "### apt:"
           sudo apt-get update
           sudo apt-get dist-upgrade
-          sudo apt-get install swig cmake lsb-release tree
+          #sudo apt-get install swig cmake lsb-release tree
 
       - name: Show directory structure from root
         continue-on-error: true
