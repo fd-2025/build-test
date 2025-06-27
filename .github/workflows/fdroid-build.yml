@@ -143,7 +143,7 @@ jobs:
           curl --silent https://gitlab.com/fdroid/fdroidserver/-/archive/master/fdroidserver-master.tar.gz | tar -xz --directory=${FDROIDSERVER} --strip-components=1
           
           apt-get install -y lsb-release tree
-          apt-get install -y ant g++ clang build-essential swig
+          apt-get install -y g++ clang build-essential swig
           apt-get install -y cmake automake zip
           apt-get install -y byacc libpcre2-dev python-is-python3
           apt-get install -y openjdk-17-jdk-headless
@@ -217,12 +217,14 @@ jobs:
           ls -la android/OsmAnd-telegram/
           ls -la help/website/images/features.zip
           ls -la resources/icons/tools/SVGtoXML/vd-tool
+          ls -la resources/test-resources/
           rm -Rf help
           rm -Rf android/OsmAnd-java/libs/*.jar
           rm -Rf android/OsmAnd/libs/*.jar
           rm -Rf android/OsmAnd-telegram/
           rm -Rf help/website/images/features.zip
           rm -Rf resources/icons/tools/SVGtoXML/vd-tool
+          rm -Rf resources/test-resources/
           ./prebuild.sh "5.1.2" "5102" arm64
           ./build.sh arm64
           cd android/Osmand
