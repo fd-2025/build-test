@@ -132,6 +132,13 @@ jobs:
           ls -la /usr/lib/jvm/java-17-openjdk-amd64/bin/java
           java -version
           javac -version
+          export FDROIDSERVER=/home/vagrant/fdroidserver
+          export PATH="/opt/gradle/bin:${FDROIDSERVER}:${PATH}"
+          echo $PATH
+          export PYTHONPATH="${FDROIDSERVER}:${FDROIDSERVER}/examples"
+          export PYTHONUNBUFFERED=true
+          mkdir ${FDROIDSERVER}
+          curl --silent https://gitlab.com/fdroid/fdroidserver/-/archive/master/fdroidserver-master.tar.gz | tar -xz --directory=${FDROIDSERVER} --strip-components=1
 
       - name: lsb_release
         continue-on-error: true
