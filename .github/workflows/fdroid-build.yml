@@ -122,10 +122,10 @@ jobs:
           echo "### uname -a:"
           uname -a
 
-      - name: apt
+      - name: install
         continue-on-error: true
         run: |
-          echo "### apt:"
+          echo "### install:"
           apt-get update
           apt-get dist-upgrade
           
@@ -156,6 +156,9 @@ jobs:
           javac -version
           
           sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+          
+          echo "### Disk space after install:"
+          df -h
 
       - name: lsb_release
         continue-on-error: true
@@ -222,3 +225,6 @@ jobs:
           ./build.sh arm64
           cd android/Osmand
           gradle assembleAndroidFullOpenglArm64Release
+          
+          echo "### Disk space after build:"
+          df -h
