@@ -245,3 +245,9 @@ jobs:
 
           echo "find APK end:"
           find ~ -type f -name "*.apk"
+          
+          exit
+          
+          whoami
+          echo "find APK end 2:"
+          find / -type f -name "*.apk"
