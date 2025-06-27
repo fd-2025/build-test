@@ -198,6 +198,8 @@ jobs:
           su vagrant
           whoami
           pwd
+          echo "find APK begin:"
+          find ~ -type f -name "*.apk"
           echo "PATH:"
           echo $PATH
           echo "ANDROID_HOME:"
@@ -228,3 +230,6 @@ jobs:
           
           echo "### Disk space after build:"
           df -h
+
+          echo "find APK end:"
+          find ~ -type f -name "*.apk"
