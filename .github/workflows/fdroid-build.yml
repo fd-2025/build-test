@@ -207,7 +207,17 @@ jobs:
           git submodule update --depth 1
           ls -la help
           du -sh help
+          ls -la android/OsmAnd-java/libs/*.jar
+          ls -la android/OsmAnd/libs/*.jar
+          ls -la android/OsmAnd-telegram/
+          ls -la help/website/images/features.zip
+          ls -la resources/icons/tools/SVGtoXML/vd-tool
           rm -Rf help
+          rm -Rf android/OsmAnd-java/libs/*.jar
+          rm -Rf android/OsmAnd/libs/*.jar
+          rm -Rf android/OsmAnd-telegram/
+          rm -Rf help/website/images/features.zip
+          rm -Rf resources/icons/tools/SVGtoXML/vd-tool
           ./prebuild.sh "5.1.2" "5102" arm64
           ./build.sh arm64
           cd android/Osmand
