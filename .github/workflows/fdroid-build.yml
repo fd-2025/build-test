@@ -122,6 +122,12 @@ jobs:
           echo "### uname -a:"
           uname -a
 
+      - name: du
+        continue-on-error: true
+        run: |
+          echo "### du:"
+          du -h --max-depth=1 / | sort -h -r
+
       - name: install
         continue-on-error: true
         run: |
