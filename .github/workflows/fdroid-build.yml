@@ -249,8 +249,8 @@ jobs:
 
           echo "### delete:"
           pwd
-          #rm -Rf core/externals/boost
-          rm -Rf core/wrappers/android/build/intermediates
+          rm -Rf core/externals/boost
+          #rm -Rf core/wrappers/android/build/intermediates
           
           echo "### Disk space mid build 2:"
           df -h
