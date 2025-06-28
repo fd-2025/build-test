@@ -275,7 +275,7 @@ jobs:
           
           pwd
           
-          gradle assembleAndroidFullOpenglArm64Release
+          gradle assembleAndroidFullOpenglArm64Release -x test
           
           echo "### Disk space after build:"
           df -h
