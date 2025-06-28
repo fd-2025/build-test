@@ -247,6 +247,14 @@ jobs:
           find . -type f -name "*.jar"
           find . -type f -name "*.aar"
 
+          echo "### delete:"
+          pwd
+          rm -Rf core/externals/boost
+          rm -Rf core/wrappers/android/build/intermediates
+          
+          echo "### Disk space mid build 2:"
+          df -h
+
       - name: build2
         continue-on-error: true
         run: |
