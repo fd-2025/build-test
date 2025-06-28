@@ -87,6 +87,7 @@ jobs:
           echo "PATH=/opt/gradle/bin:/home/vagrant/fdroidserver:${PATH}" >> $GITHUB_ENV
           echo "PYTHONPATH=/home/vagrant/fdroidserver:/home/vagrant/fdroidserver/examples" >> $GITHUB_ENV
           echo "PYTHONUNBUFFERED=true" >> $GITHUB_ENV
+          echo "GRADLE_OPTS=-Xmx2048m" >> $GITHUB_ENV
 
       - name: whoami
         continue-on-error: true
@@ -143,6 +144,7 @@ jobs:
           echo "FDROIDSERVER: $FDROIDSERVER"
           echo "PYTHONPATH: $PYTHONPATH"
           echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
+          echo "GRADLE_OPTS: $GRADLE_OPTS"
           
           mkdir ${FDROIDSERVER}
           git ls-remote https://gitlab.com/fdroid/fdroidserver.git master
