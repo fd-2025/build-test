@@ -240,7 +240,12 @@ jobs:
           
           echo "### Disk space mid build:"
           df -h
-          du -h --max-depth=1 . | sort -h -r
+          du -h --max-depth=7 . | sort -h -r
+          
+          echo "### find build:"
+          find . -type f -name "*.so"
+          find . -type f -name "*.jar"
+          find . -type f -name "*.aar"
 
       - name: build2
         continue-on-error: true
