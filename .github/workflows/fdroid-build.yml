@@ -249,7 +249,7 @@ jobs:
 
           echo "### delete:"
           pwd
-          rm -Rf core/externals/boost
+          #rm -Rf core/externals/boost
           rm -Rf core/wrappers/android/build/intermediates
           
           echo "### Disk space mid build 2:"
@@ -275,7 +275,8 @@ jobs:
           
           pwd
           
-          gradle assembleAndroidFullOpenglArm64Release -x OsmAnd-java:test
+          gradle assembleAndroidFullOpenglArm64Release
+          #-x OsmAnd-java:test
           
           echo "### Disk space after build:"
           df -h
