@@ -87,9 +87,6 @@ jobs:
       - name: ls GITHUB_WORKSPACE
         run: ls -l $GITHUB_WORKSPACE
 
-      - name: cat
-        run: cat $GITHUB_WORKSPACE/README.md
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -301,20 +298,16 @@ jobs:
           
           echo "### Disk space after build:"
           df -h
-
-          echo "find APK end:"
-          find ~ -type f -name "*.apk"
-          
-          #exit
           
           whoami
-          echo "find APK end 2:"
-          find / -type f -name "*.apk"
-          echo "copy APKs to workspace:"
-          find / -type f -name '*.apk' -exec cp --parents {} $GITHUB_WORKSPACE \;
+          
+          echo "find and copy APKs to workspace:"
+          mkdir $GITHUB_WORKSPACE/output
+          find / -type f -name '*.apk' -exec cp {} $GITHUB_WORKSPACE/output/ \;
+          ls -l $GITHUB_WORKSPACE/output
 
-      - name: Upload APKs
+      - name: Upload all APKs as an artifact
         uses: actions/upload-artifact@v4
         with:
-            name: apks
-            path: $GITHUB_WORKSPACE/*.apk
+          name: apks
+          path: ${{ github.workspace }}/output/
