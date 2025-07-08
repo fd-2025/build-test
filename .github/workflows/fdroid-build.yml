@@ -87,6 +87,9 @@ jobs:
       - name: ls GITHUB_WORKSPACE
         run: ls -l $GITHUB_WORKSPACE
 
+      - name: cat
+        run: cat $GITHUB_WORKSPACE/README.md
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
