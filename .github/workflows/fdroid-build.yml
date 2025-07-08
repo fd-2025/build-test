@@ -73,13 +73,25 @@ jobs:
       image: registry.gitlab.com/fdroid/fdroidserver:buildserver-bookworm
 
     steps:
+      - name: Checkout repository
+        continue-on-error: true
+        uses: actions/checkout@v4
+
       - name: Show GITHUB_WORKSPACE
         continue-on-error: true
         run: echo $GITHUB_WORKSPACE
 
-      - name: Checkout repository
-        continue-on-error: true
-        uses: actions/checkout@v4
+      - name: Write hello.txt
+        run: echo "Hello" > $GITHUB_WORKSPACE/hello.txt
+
+      - name: ls GITHUB_WORKSPACE
+        run: ls -l $GITHUB_WORKSPACE
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-file
+          path: $GITHUB_WORKSPACE/hello.txt
 
       - name: Set environment variables
         run: |
