@@ -73,13 +73,13 @@ jobs:
       image: registry.gitlab.com/fdroid/fdroidserver:buildserver-bookworm
 
     steps:
-      - name: Checkout repository
-        continue-on-error: true
-        uses: actions/checkout@v4
-
       - name: Show GITHUB_WORKSPACE
         continue-on-error: true
         run: echo $GITHUB_WORKSPACE
+
+      - name: Checkout repository
+        continue-on-error: true
+        uses: actions/checkout@v4
 
       - name: Write hello.txt
         run: echo "Hello" > $GITHUB_WORKSPACE/hello.txt
@@ -307,3 +307,11 @@ jobs:
           whoami
           echo "find APK end 2:"
           find / -type f -name "*.apk"
+          echo "copy APKs to workspace:"
+          find / -type f -name '*.apk' -exec cp --parents {} $GITHUB_WORKSPACE \;
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+            name: apks
+            path: $GITHUB_WORKSPACE/*.apk
