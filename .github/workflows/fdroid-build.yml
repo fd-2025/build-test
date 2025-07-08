@@ -307,8 +307,8 @@ jobs:
           
           pwd
           
-          #gradle assembleAndroidFullOpenglArm64Release
-          gradle assembleAndroidFullOpenglArm64Release -x :OsmAnd-java:test
+          gradle assembleAndroidFullOpenglArm64Release
+          #gradle assembleAndroidFullOpenglArm64Release -x :OsmAnd-java:test
           
           echo "### Disk space after build:"
           df -h
