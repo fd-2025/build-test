@@ -314,6 +314,8 @@ jobs:
           df -h
           
           whoami
+          echo "find all APKs:"
+          find / -type f -name '*.apk'
           echo "find APKs:"
           find / -type f -name 'OsmAnd*.apk'
           echo "find and copy APKs to workspace:"
