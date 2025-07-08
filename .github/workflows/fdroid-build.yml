@@ -81,21 +81,13 @@ jobs:
         continue-on-error: true
         run: ls -l $GITHUB_WORKSPACE
 
-      - name: Show GITHUB_RUNNER_WORKSPACE
+      - name: Show GITHUB_TEMP
         continue-on-error: true
-        run: echo $GITHUB_RUNNER_WORKSPACE
+        run: echo $GITHUB_TEMP
 
-      - name: ls GITHUB_RUNNER_WORKSPACE
+      - name: ls GITHUB_TEMP
         continue-on-error: true
-        run: ls -l $GITHUB_RUNNER_WORKSPACE
-
-      - name: Show GITHUB_RUNNER_TEMP
-        continue-on-error: true
-        run: echo $GITHUB_RUNNER_TEMP
-
-      - name: ls GITHUB_RUNNER_TEMP
-        continue-on-error: true
-        run: ls -l $GITHUB_RUNNER_TEMP
+        run: ls -l $GITHUB_TEMP
 
       - name: Checkout repository
         continue-on-error: true
