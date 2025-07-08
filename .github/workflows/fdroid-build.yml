@@ -314,10 +314,11 @@ jobs:
           df -h
           
           whoami
-          
+          echo "find APKs:"
+          find / -type f -name 'OsmAnd*.apk'
           echo "find and copy APKs to workspace:"
           mkdir $GITHUB_WORKSPACE/output
-          find / -type f -name '*.apk' -exec cp {} $GITHUB_WORKSPACE/output/ \;
+          find / -type f -name 'OsmAnd*.apk' -exec cp {} $GITHUB_WORKSPACE/output/ \;
           ls -l $GITHUB_WORKSPACE/output
 
       - name: Upload all APKs as an artifact
