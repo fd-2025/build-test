@@ -244,7 +244,7 @@ jobs:
           echo $ANDROID_HOME
           echo "ANDROID_SDK_ROOT:"
           echo $ANDROID_SDK_ROOT
-          git clone --depth 1 https://github.com/fd-2025/OsmAnd-submodules.git #https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
+          git clone --branch v5.1.4 --depth 1 https://github.com/fd-2025/OsmAnd-submodules.git #https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
           cd OsmAnd-submodules
           git submodule init
           git submodule update --depth 1
