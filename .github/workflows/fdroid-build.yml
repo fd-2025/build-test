@@ -91,7 +91,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: hello-file
-          path: $GITHUB_WORKSPACE/hello.txt
+          path: ${{ github.workspace }}/hello.txt
 
       - name: Set environment variables
         run: |
