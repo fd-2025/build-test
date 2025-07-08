@@ -77,14 +77,36 @@ jobs:
         continue-on-error: true
         run: echo $GITHUB_WORKSPACE
 
+      - name: ls GITHUB_WORKSPACE
+        continue-on-error: true
+        run: ls -l $GITHUB_WORKSPACE
+
+      - name: Show GITHUB_RUNNER_WORKSPACE
+        continue-on-error: true
+        run: echo $GITHUB_RUNNER_WORKSPACE
+
+      - name: ls GITHUB_RUNNER_WORKSPACE
+        continue-on-error: true
+        run: ls -l $GITHUB_RUNNER_WORKSPACE
+
+      - name: Show GITHUB_RUNNER_TEMP
+        continue-on-error: true
+        run: echo $GITHUB_RUNNER_TEMP
+
+      - name: ls GITHUB_RUNNER_TEMP
+        continue-on-error: true
+        run: ls -l $GITHUB_RUNNER_TEMP
+
       - name: Checkout repository
         continue-on-error: true
         uses: actions/checkout@v4
 
       - name: Write hello.txt
+        continue-on-error: true
         run: echo "Hello" > $GITHUB_WORKSPACE/hello.txt
 
       - name: ls GITHUB_WORKSPACE
+        continue-on-error: true
         run: ls -l $GITHUB_WORKSPACE
 
       - name: Upload artifact
@@ -278,8 +300,8 @@ jobs:
         run: |
           echo "### Build2:"
           whoami
-          su vagrant
-          whoami
+          #su vagrant
+          #whoami
           pwd
           echo "PATH:"
           echo $PATH
