@@ -73,6 +73,10 @@ jobs:
       image: registry.gitlab.com/fdroid/fdroidserver:buildserver-bookworm
 
     steps:
+      - name: Show GITHUB_WORKSPACE
+        continue-on-error: true
+        run: echo $GITHUB_WORKSPACE
+
       - name: Checkout repository
         continue-on-error: true
         uses: actions/checkout@v4
@@ -286,7 +290,7 @@ jobs:
           echo "find APK end:"
           find ~ -type f -name "*.apk"
           
-          exit
+          #exit
           
           whoami
           echo "find APK end 2:"
