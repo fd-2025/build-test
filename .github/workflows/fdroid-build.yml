@@ -76,6 +76,7 @@ jobs:
       - name: whoami
         #continue-on-error: true
         run: |
+          ls -l /
           whoami
           echo "HOME:" $HOME
           ls -lad $HOME
