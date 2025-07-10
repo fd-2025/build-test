@@ -128,6 +128,13 @@ jobs:
         #continue-on-error: true
         run: ls -l $GITHUB_WORKSPACE
 
+      - name: Set permissions RUNNER_TEMP
+        run: |
+          ls -ld $RUNNER_TEMP
+          sudo chown -R $(id -u):$(id -g) $RUNNER_TEMP
+          ls -ld $RUNNER_TEMP
+          ls -la $RUNNER_TEMP
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
