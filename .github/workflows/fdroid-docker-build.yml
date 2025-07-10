@@ -32,6 +32,8 @@ jobs:
           docker exec mycontainer sh -c 'echo "hello" > /tmp/hello.txt'
           docker exec mycontainer setup-volume.sh
 
+          docker stop mycontainer
+
           docker cp mycontainer:/tmp/hello.txt .
           docker rm mycontainer
 
