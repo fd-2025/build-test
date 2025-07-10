@@ -35,7 +35,7 @@ jobs:
           docker exec mycontainer whoami
           docker exec mycontainer sh -c 'echo "hello" > /tmp/hello.txt'
           docker exec -w /mnt/volume mycontainer setup-volume.sh
-          docker exec -w /mnt/volume/OsmAnd-submodules mycontainer ./prebuild.sh "5.1.3" "5103" arm64
+          docker exec -w /mnt/volume/OsmAnd-submodules mycontainer ./prebuild.sh "5.1.5" "5105" arm64
 
       - name: Run build
         continue-on-error: true

@@ -14,7 +14,8 @@ echo "FDROIDSERVER: $FDROIDSERVER"
 echo "PYTHONPATH: $PYTHONPATH"
 echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
 
-git clone https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
+#git clone https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
+git clone --branch v5.1.5 https://github.com/fd-2025/OsmAnd-submodules.git
 pushd OsmAnd-submodules
 git submodule init
 git submodule update --depth 1
