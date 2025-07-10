@@ -94,13 +94,6 @@ jobs:
           ls -ld $GITHUB_WORKSPACE
           ls -la $GITHUB_WORKSPACE
 
-      - name: Set permissions GITHUB_OUTPUT
-        run: |
-          ls -ld $GITHUB_OUTPUT
-          sudo chown -R $(id -u):$(id -g) $GITHUB_OUTPUT
-          ls -ld $GITHUB_OUTPUT
-          ls -la $GITHUB_OUTPUT
-
       #- name: Set permissions RUNNER_TEMP
       #  continue-on-error: true
       #  run: |
@@ -152,6 +145,9 @@ jobs:
       #    sudo chown -R $(id -u):$(id -g) $RUNNER_TEMP
       #    ls -ld $RUNNER_TEMP
       #    ls -la $RUNNER_TEMP
+
+      - name: Fix runner directory permissions
+        run: sudo chown -R $(id -u):$(id -g) /__w
 
       - name: Upload artifact
         continue-on-error: true
