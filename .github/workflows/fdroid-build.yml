@@ -145,15 +145,15 @@ jobs:
 
       - name: Set environment variables
         run: |
-          echo "ANDROID_HOME=/opt/android-sdk" >> $GITHUB_ENV
-          echo "ANDROID_SDK_ROOT=/opt/android-sdk" >> $GITHUB_ENV
-          echo "ANDROID_SDK=/opt/android-sdk" >> $GITHUB_ENV
-          echo "ANDROID_NDK=/opt/android-sdk/ndk/23.2.8568313" >> $GITHUB_ENV
-          echo "FDROIDSERVER=/home/vagrant/fdroidserver" >> $GITHUB_ENV
-          echo "PATH=/opt/gradle/bin:/home/vagrant/fdroidserver:${PATH}" >> $GITHUB_ENV
-          echo "PYTHONPATH=/home/vagrant/fdroidserver:/home/vagrant/fdroidserver/examples" >> $GITHUB_ENV
-          echo "PYTHONUNBUFFERED=true" >> $GITHUB_ENV
-          #echo "GRADLE_OPTS=-Xmx4096m" >> $GITHUB_ENV
+          sudo echo "ANDROID_HOME=/opt/android-sdk" >> $GITHUB_ENV
+          sudo echo "ANDROID_SDK_ROOT=/opt/android-sdk" >> $GITHUB_ENV
+          sudo echo "ANDROID_SDK=/opt/android-sdk" >> $GITHUB_ENV
+          sudo echo "ANDROID_NDK=/opt/android-sdk/ndk/23.2.8568313" >> $GITHUB_ENV
+          sudo echo "FDROIDSERVER=/home/vagrant/fdroidserver" >> $GITHUB_ENV
+          sudo echo "PATH=/opt/gradle/bin:/home/vagrant/fdroidserver:${PATH}" >> $GITHUB_ENV
+          sudo echo "PYTHONPATH=/home/vagrant/fdroidserver:/home/vagrant/fdroidserver/examples" >> $GITHUB_ENV
+          sudo echo "PYTHONUNBUFFERED=true" >> $GITHUB_ENV
+          #sudo echo "GRADLE_OPTS=-Xmx4096m" >> $GITHUB_ENV
 
       - name: Show current working directory
         #continue-on-error: true
