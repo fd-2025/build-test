@@ -84,15 +84,13 @@ jobs:
           ls -ld $GITHUB_WORKSPACE
           ls -la $GITHUB_WORKSPACE
 
-      - name: Set permissions RUNNER_TEMP
-        continue-on-error: true
-        run: |
-          ls -ld /home/runner/work/_temp/
-          sudo chown -R $(id -u):$(id -g) /home/runner/work/_temp/
-          ls -ld $RUNNER_TEMP
-          sudo chown -R $(id -u):$(id -g) $RUNNER_TEMP
-          ls -ld $RUNNER_TEMP
-          ls -la $RUNNER_TEMP
+      #- name: Set permissions RUNNER_TEMP
+      #  continue-on-error: true
+      #  run: |
+      #    ls -ld $RUNNER_TEMP
+      #    sudo chown -R $(id -u):$(id -g) $RUNNER_TEMP
+      #    ls -ld $RUNNER_TEMP
+      #    ls -la $RUNNER_TEMP
 
       - name: Show GITHUB_WORKSPACE
         #continue-on-error: true
