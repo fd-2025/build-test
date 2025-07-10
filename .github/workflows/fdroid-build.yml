@@ -227,6 +227,11 @@ jobs:
           ls -la /usr/lib/jvm/java-17-openjdk-amd64/bin/java
           java -version
           javac -version
+
+          which sdkmanager
+          ls -l "$(which sdkmanager)"
+
+          echo "HOME:" $HOME
           
           sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
           
