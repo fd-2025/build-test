@@ -228,7 +228,7 @@ jobs:
           java -version
           javac -version
           
-          sudo sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+          sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
           
           echo "### Disk space after install:"
           df -h
