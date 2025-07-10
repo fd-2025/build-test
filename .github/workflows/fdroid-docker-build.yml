@@ -31,7 +31,7 @@ jobs:
       - name: Show Docker image layers and their sizes
         run: docker history --no-trunc --human local/osmand:latest
 
-      - name: Create data directory (if needed)
+      - name: Create data directory
         run: |
           #mkdir ${{ github.workspace }}/data_volume
           #chmod 777 ${{ github.workspace }}/data_volume
