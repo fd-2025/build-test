@@ -74,10 +74,14 @@ jobs:
 
     steps:
       - name: whoami
-        #continue-on-error: true
+        continue-on-error: true
         run: |
           whoami
           echo "HOME:" $HOME
+          ls -lad $HOME
+          ls -la $HOME
+          ls -lad $HOME/.cache
+          ls -la $HOME/.cache
 
       - name: Set permissions GITHUB_WORKSPACE
         run: |
