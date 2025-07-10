@@ -79,9 +79,11 @@ jobs:
           whoami
           echo "HOME:" $HOME
           ls -lad $HOME
+
+      - name: Fix HOME permissions
+        run: |
+          sudo chown -R $(id -u):$(id -g) $HOME
           ls -la $HOME
-          ls -lad $HOME/.cache
-          ls -la $HOME/.cache
 
       - name: Set permissions GITHUB_WORKSPACE
         run: |
@@ -238,16 +240,16 @@ jobs:
           ls -l "$(which sdkmanager)"
           #cat "$(which sdkmanager)"
 
-          echo "HOME:" $HOME
+          #echo "HOME:" $HOME
 
           #export HOME=$(getent passwd $(whoami) | cut -d: -f6)
           #echo "HOME is now: $HOME"
           
-          #sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+          sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
 
-          HOME_TMP=$(getent passwd $(whoami) | cut -d: -f6)
-          echo "HOME_TMP: $HOME_TMP"
-          HOME=$HOME_TMP sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+          #HOME_TMP=$(getent passwd $(whoami) | cut -d: -f6)
+          #echo "HOME_TMP: $HOME_TMP"
+          #HOME=$HOME_TMP sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
           
           echo "### Disk space after install:"
           df -h
@@ -311,9 +313,10 @@ jobs:
           echo "### du begin:"
           du -h --max-depth=1 . | sort -h -r
           
-          HOME_TMP=$(getent passwd $(whoami) | cut -d: -f6)
-          echo "HOME_TMP: $HOME_TMP"
-          HOME=$HOME_TMP ./prebuild.sh "5.1.4" "510403" arm64
+          #HOME_TMP=$(getent passwd $(whoami) | cut -d: -f6)
+          #echo "HOME_TMP: $HOME_TMP"
+          #HOME=$HOME_TMP ./prebuild.sh "5.1.4" "510403" arm64
+          ./prebuild.sh "5.1.4" "510403" arm64
           ./build.sh arm64
           
           echo "### Disk space mid build:"
