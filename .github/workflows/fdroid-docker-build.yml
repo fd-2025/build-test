@@ -23,9 +23,12 @@ jobs:
 
       - name: Run command in Docker container and copy file out
         run: |
-          docker run --name mycontainer myimage:latest sh -c 'whoami'
-          docker run --name mycontainer myimage:latest sh -c 'echo "hello" > /tmp/hello.txt'
-          docker run --name mycontainer myimage:latest sh -c 'setup-volume.sh'
+          docker run -d --name mycontainer myimage:latest sleep infinity
+
+          docker exec mycontainer whoami
+          docker exec mycontainer sh -c 'echo "hello" > /tmp/hello.txt'
+          docker exec mycontainer setup-volume.sh
+
           docker cp mycontainer:/tmp/hello.txt .
           docker rm mycontainer
 
