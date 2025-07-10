@@ -16,6 +16,7 @@ jobs:
         run: |
           df -h
           ls -la /mnt
+          cat /mnt/DATALOSS_WARNING_README.txt
           docker build -t local/osmand:latest .
           df -h
 
