@@ -97,7 +97,8 @@ jobs:
           docker stop osmand_container
 
           echo "find APKs:"
-          find ${{ github.workspace }}/volume -type f -name 'OsmAnd*.apk'
+          #find ${{ github.workspace }}/volume -type f -name 'OsmAnd*.apk'
+          find /mnt/data_volume -type f -name 'OsmAnd*.apk'
 
           docker rm osmand_container
           df -h
