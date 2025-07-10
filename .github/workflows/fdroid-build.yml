@@ -102,6 +102,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ls -ld $GITHUB_WORKSPACE
+          sudo chown -R vagrant $GITHUB_WORKSPACE
+          ls -ld $GITHUB_WORKSPACE
+          ls -la $GITHUB_WORKSPACE
           git clone https://github.com/${GITHUB_REPOSITORY}.git $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           git fetch --depth=1 origin $GITHUB_SHA
