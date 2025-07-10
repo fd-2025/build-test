@@ -239,12 +239,11 @@ jobs:
           #export HOME=$(getent passwd $(whoami) | cut -d: -f6)
           #echo "HOME is now: $HOME"
           
-          echo "test 22:"
-          sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+          #sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
 
-          #HOME_TMP=$(getent passwd $(whoami) | cut -d: -f6)
-          #echo "HOME_TMP: $HOME_TMP"
-          #HOME=$HOME_TMP sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+          HOME_TMP=$(getent passwd $(whoami) | cut -d: -f6)
+          echo "HOME_TMP: $HOME_TMP"
+          HOME=$HOME_TMP sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
           
           echo "### Disk space after install:"
           df -h
@@ -308,7 +307,9 @@ jobs:
           echo "### du begin:"
           du -h --max-depth=1 . | sort -h -r
           
-          ./prebuild.sh "5.1.4" "510403" arm64
+          HOME_TMP=$(getent passwd $(whoami) | cut -d: -f6)
+          echo "HOME_TMP: $HOME_TMP"
+          HOME=$HOME_TMP ./prebuild.sh "5.1.4" "510403" arm64
           ./build.sh arm64
           
           echo "### Disk space mid build:"
