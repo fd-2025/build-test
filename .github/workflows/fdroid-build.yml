@@ -77,6 +77,20 @@ jobs:
         #continue-on-error: true
         run: whoami
 
+      - name: Set permissions GITHUB_WORKSPACE
+        run: |
+          ls -ld $GITHUB_WORKSPACE
+          sudo chown -R $(id -u):$(id -g) $GITHUB_WORKSPACE
+          ls -ld $GITHUB_WORKSPACE
+          ls -la $GITHUB_WORKSPACE
+
+      - name: Set permissions RUNNER_TEMP
+        run: |
+          ls -ld $RUNNER_TEMP
+          sudo chown -R $(id -u):$(id -g) $RUNNER_TEMP
+          ls -ld $RUNNER_TEMP
+          ls -la $RUNNER_TEMP
+
       - name: Show GITHUB_WORKSPACE
         #continue-on-error: true
         run: echo $GITHUB_WORKSPACE
@@ -101,10 +115,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ls -ld $GITHUB_WORKSPACE
-          sudo chown -R vagrant $GITHUB_WORKSPACE
-          ls -ld $GITHUB_WORKSPACE
-          ls -la $GITHUB_WORKSPACE
           git clone https://github.com/${GITHUB_REPOSITORY}.git $GITHUB_WORKSPACE
           cd $GITHUB_WORKSPACE
           git fetch --depth=1 origin $GITHUB_SHA
