@@ -11,61 +11,61 @@ jobs:
 
     steps:
       - name: Check out repository
-        continue-on-error: true
+        #continue-on-error: true
         uses: actions/checkout@v4
 
       - name: whoami
-        continue-on-error: true
+        #continue-on-error: true
         run: whoami
 
       - name: Show current working directory
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### Current working directory:"
           pwd
 
       - name: Show RAM information
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### RAM information:"
           free -h
 
       - name: Show CPU information
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### CPU information:"
           lscpu
 
       - name: Show disk space
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### Disk space:"
           df -h
 
       - name: uname
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### uname -a:"
           uname -a
 
       - name: lsb_release
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### lsb_release:"
           lsb_release -a
 
       - name: apt
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### apt:"
           sudo apt-get update
           sudo apt-get dist-upgrade
 
       - name: Show directory structure from root
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### Directory structure from root (/), depth 2:"
-          tree -L 2 /
+          sudo tree -L 2 /
   build:
     runs-on: ubuntu-latest
     container:
@@ -73,31 +73,31 @@ jobs:
 
     steps:
       - name: Show GITHUB_WORKSPACE
-        continue-on-error: true
+        #continue-on-error: true
         run: echo $GITHUB_WORKSPACE
 
       - name: ls GITHUB_WORKSPACE
-        continue-on-error: true
+        #continue-on-error: true
         run: ls -l $GITHUB_WORKSPACE
 
       - name: Show RUNNER_TEMP
-        continue-on-error: true
+        #continue-on-error: true
         run: echo $RUNNER_TEMP
 
       - name: ls RUNNER_TEMP
-        continue-on-error: true
+        #continue-on-error: true
         run: ls -l $RUNNER_TEMP
 
       - name: Checkout repository
-        continue-on-error: true
+        #continue-on-error: true
         uses: actions/checkout@v4
 
       - name: Write hello.txt
-        continue-on-error: true
+        #continue-on-error: true
         run: echo "Hello" > $GITHUB_WORKSPACE/hello.txt
 
       - name: ls GITHUB_WORKSPACE
-        continue-on-error: true
+        #continue-on-error: true
         run: ls -l $GITHUB_WORKSPACE
 
       - name: Upload artifact
@@ -119,47 +119,47 @@ jobs:
           #echo "GRADLE_OPTS=-Xmx4096m" >> $GITHUB_ENV
 
       - name: whoami
-        continue-on-error: true
+        #continue-on-error: true
         run: whoami
 
       - name: Show current working directory
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### Current working directory:"
           pwd
 
       - name: Show RAM information
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### RAM information:"
           free -h
 
       - name: Show CPU information
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### CPU information:"
           lscpu
 
       - name: Show disk space
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### Disk space:"
           df -h
 
       - name: uname
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### uname -a:"
           uname -a
 
       - name: du
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### du:"
           du -h --max-depth=1 / | sort -h -r
 
       - name: install
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### install:"
           apt-get update
@@ -184,7 +184,7 @@ jobs:
           #apt-get install -y cmake automake zip
           #apt-get install -y byacc libpcre2-dev python-is-python3
           #apt-get install -y openjdk-17-jdk-headless
-          apt-get install -y openjdk-17-jdk-headless build-essential ant cmake python-is-python3 wget swig zip vim
+          apt-get install -y openjdk-17-jdk-headless build-essential cmake clang python-is-python3 wget swig zip
           
           update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
           which java
@@ -199,42 +199,42 @@ jobs:
           df -h
 
       - name: lsb_release
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### lsb_release:"
           lsb_release -a
           cat /etc/passwd
 
       - name: fdroidserver path
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### ls fdroidserver path:"
           ls -la "$FDROIDSERVER"
 
       - name: android-sdk path
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### ls android-sdk path:"
           ls -la "$ANDROID_SDK"
 
       - name: android-ndk path
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### ls android-ndk path:"
           ls -la "$ANDROID_NDK"
 
       - name: Show directory structure from root
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### Directory structure from root (/), depth 4:"
           tree -L 4 /
 
       - name: build
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### Build:"
           su vagrant
-          whoami
+          whoami #root
           pwd
           echo "find APK begin:"
           find ~ -type f -name "*.apk"
@@ -252,7 +252,6 @@ jobs:
           ls -la android/OsmAnd/libs/*.jar
           ls -la android/OsmAnd-telegram/
           ls -la resources/icons/tools/SVGtoXML/vd-tool
-          ls -la resources/test-resources/
           rm -Rf android/OsmAnd-java/libs/*.jar
           rm -Rf android/OsmAnd/libs/*.jar
           rm -Rf android/OsmAnd-telegram/
@@ -282,7 +281,7 @@ jobs:
           df -h
 
       - name: build2
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           echo "### Build2:"
           whoami
