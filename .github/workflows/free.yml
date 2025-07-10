@@ -15,11 +15,16 @@ jobs:
           id
           df -h
           ls -la /mnt
+          sudo du -h --max-depth=5 / | sort -hr | head -n 50
+
+          df -h
+          echo "rm android"
           sudo du -sh /usr/local/lib/android
           sudo rm -rf /usr/local/lib/android
+          df -h
           
-          sudo du -sh /usr/share/dotnet
-          sudo rm -rf /usr/share/dotnet
+          #sudo du -sh /usr/share/dotnet
+          #sudo rm -rf /usr/share/dotnet
           
           sudo du -sh /opt/ghc
           sudo rm -rf /opt/ghc
