@@ -1,7 +1,7 @@
 name: Build OsmAnd
 
 on:
-  #push:
+  push:
   workflow_dispatch:
 
 jobs:
@@ -15,6 +15,19 @@ jobs:
           id
           df -h
           ls -la /mnt
+
+      - name: free
+        run: |
+          df -h
+          sudo du -sh /usr/local/lib/android || true
+          sudo rm -rf /usr/local/lib/android
+
+          sudo du -sh /usr/local/.ghcup || true
+          sudo rm -rf /usr/local/.ghcup
+
+          sudo du -sh /opt/hostedtoolcache || true
+          sudo rm -rf /opt/hostedtoolcache
+          df -h
 
       - name: Checkout code
         uses: actions/checkout@v4
