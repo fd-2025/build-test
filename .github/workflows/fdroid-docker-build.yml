@@ -1,11 +1,11 @@
-name: Build, Run and Export Artifact from Docker
+name: Build OsmAnd
 
 on:
   push:
   workflow_dispatch:
 
 jobs:
-  build-run-artifact:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,13 +13,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t myimage:latest .
+        run: docker build -t local/osmand:latest .
 
       - name: Show total Docker image size
-        run: docker images myimage:latest
+        run: docker images local/osmand:latest
 
       - name: Show Docker image layers and their sizes
-        run: docker history --no-trunc --human myimage:latest
+        run: docker history --no-trunc --human local/osmand:latest
 
       - name: Create data directory (if needed)
         run: |
@@ -28,49 +28,52 @@ jobs:
 
       - name: Run Docker
         run: |
-          docker run -d --name mycontainer -v "${{ github.workspace }}/volume:/mnt/volume" myimage:latest sleep infinity
+          docker run -d --name osmand_container -v "${{ github.workspace }}/volume:/mnt/volume" local/osmand:latest sleep infinity
 
       - name: Run prebuild
         run: |
-          docker exec mycontainer whoami
-          docker exec mycontainer sh -c 'echo "hello" > /tmp/hello.txt'
-          docker exec -w /mnt/volume mycontainer setup-volume.sh
-          docker exec -w /mnt/volume/OsmAnd-submodules mycontainer ./prebuild.sh "5.1.6" "5106" arm64
+          docker exec -w /mnt/volume osmand_container sh -c '
+          whoami
+          ls -ld . && \
+          ls -la && \
+          echo "PATH: $PATH" && \
+          echo "ANDROID_HOME: $ANDROID_HOME" && \
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT" && \
+          echo "ANDROID_SDK: $ANDROID_SDK" && \
+          echo "ANDROID_NDK: $ANDROID_NDK" && \
+          echo "FDROIDSERVER: $FDROIDSERVER" && \
+          echo "PYTHONPATH: $PYTHONPATH" && \
+          echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
+          '
+          docker exec -w /mnt/volume osmand_container setup-volume.sh
+          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./prebuild.sh "5.1.6" "5106" arm64
 
       - name: Run build
-        continue-on-error: true
+        #continue-on-error: true
         run: |
-          docker exec -w /mnt/volume/OsmAnd-submodules mycontainer ./build.sh arm64
+          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./build.sh arm64
           df -h
-          docker exec -w /mnt/volume/OsmAnd-submodules mycontainer du -sh core/externals/boost
-          docker exec -w /mnt/volume/OsmAnd-submodules mycontainer rm -rf core/externals/boost
+          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container du -sh core/externals/boost
+          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container rm -rf core/externals/boost
           df -h
 
       - name: Run gradle
-        continue-on-error: true
+        #continue-on-error: true
         run: |
-          docker exec -w /mnt/volume/OsmAnd-submodules/android/OsmAnd mycontainer gradle assembleAndroidFullOpenglArm64Release
+          docker exec -w /mnt/volume/OsmAnd-submodules/android/OsmAnd osmand_container gradle assembleAndroidFullOpenglArm64Release
 
       - name: Run stop Docker
         continue-on-error: true
         run: |
-          docker stop mycontainer
+          docker stop osmand_container
 
           echo "find APKs:"
           find ${{ github.workspace }}/volume -type f -name 'OsmAnd*.apk'
 
-          docker cp mycontainer:/tmp/hello.txt .
-          docker rm mycontainer
-
-      - name: Upload hello.txt as artifact
-        continue-on-error: true
-        uses: actions/upload-artifact@v4
-        with:
-          name: hello-file
-          path: hello.txt
+          docker rm osmand_container
 
       - name: Upload apk as artifact
-        continue-on-error: true
+        #continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: apk-file

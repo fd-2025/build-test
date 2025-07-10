@@ -1,19 +1,5 @@
 #!/bin/bash
 
-whoami
-pwd
-ls -ld .
-ls -la
-
-echo "PATH: $PATH"
-echo "ANDROID_HOME: $ANDROID_HOME"
-echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
-echo "ANDROID_SDK: $ANDROID_SDK"
-echo "ANDROID_NDK: $ANDROID_NDK"
-echo "FDROIDSERVER: $FDROIDSERVER"
-echo "PYTHONPATH: $PYTHONPATH"
-echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
-
 #git clone https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
 git clone --branch v5.1.6 https://github.com/fd-2025/OsmAnd-submodules.git
 pushd OsmAnd-submodules
