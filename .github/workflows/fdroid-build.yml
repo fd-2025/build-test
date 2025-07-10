@@ -82,6 +82,7 @@ jobs:
           ls -lad $HOME
           echo "Show all env:"
           printenv
+          sudo apt-get install acl
 
       - name: Fix HOME permissions
         run: |
