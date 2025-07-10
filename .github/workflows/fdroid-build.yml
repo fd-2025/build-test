@@ -166,7 +166,7 @@ jobs:
       #    ls -la $RUNNER_TEMP
 
       - name: Fix runner directory permissions
-        run: sudo chown -R $(id -u):$(id -g) /__w
+        run: sudo chmod -R a+rwX /__w #sudo chown -R $(id -u):$(id -g) /__w
 
       - name: Upload artifact
         continue-on-error: true
