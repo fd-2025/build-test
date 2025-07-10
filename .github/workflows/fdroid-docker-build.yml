@@ -15,8 +15,8 @@ jobs:
           id
           df -h
           ls -la /mnt
-          #curl -H Metadata:true "http://169.254.169.254/metadata/versions"
-          curl -H Metadata:true "http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2023-11-15&format=text"
+          #curl -sS -H Metadata:true "http://169.254.169.254/metadata/versions"
+          curl -sS -H Metadata:true "http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2023-11-15&format=text"
 
       - name: free
         run: |
