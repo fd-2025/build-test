@@ -1,5 +1,10 @@
 #!/bin/bash
 
+whoami
+pwd
+ls -ld .
+ls -la
+
 git clone https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
 pushd OsmAnd-submodules
 git submodule init
