@@ -79,6 +79,8 @@ jobs:
           whoami
           echo "HOME:" $HOME
           ls -lad $HOME
+          echo "Show all env:"
+          printenv
 
       - name: Fix HOME permissions
         run: |
