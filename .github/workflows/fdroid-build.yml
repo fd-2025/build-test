@@ -60,7 +60,6 @@ jobs:
           echo "### apt:"
           sudo apt-get update
           sudo apt-get dist-upgrade
-          #sudo apt-get install swig cmake lsb-release tree
 
       - name: Show directory structure from root
         continue-on-error: true
@@ -181,10 +180,11 @@ jobs:
           curl --silent https://gitlab.com/fdroid/fdroidserver/-/archive/master/fdroidserver-master.tar.gz | tar -xz --directory=${FDROIDSERVER} --strip-components=1
           
           apt-get install -y lsb-release tree
-          apt-get install -y ant g++ clang build-essential swig
-          apt-get install -y cmake automake zip
-          apt-get install -y byacc libpcre2-dev python-is-python3
-          apt-get install -y openjdk-17-jdk-headless
+          #apt-get install -y ant g++ clang build-essential swig
+          #apt-get install -y cmake automake zip
+          #apt-get install -y byacc libpcre2-dev python-is-python3
+          #apt-get install -y openjdk-17-jdk-headless
+          apt-get install -y openjdk-17-jdk-headless build-essential ant clang cmake automake python-is-python3 wget swig zip vim
           
           update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
           which java
