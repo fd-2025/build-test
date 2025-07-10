@@ -74,7 +74,7 @@ jobs:
 
     steps:
       - name: whoami
-        continue-on-error: true
+        #continue-on-error: true
         run: |
           whoami
           echo "HOME:" $HOME
@@ -93,6 +93,13 @@ jobs:
           sudo chown -R $(id -u):$(id -g) $GITHUB_WORKSPACE
           ls -ld $GITHUB_WORKSPACE
           ls -la $GITHUB_WORKSPACE
+
+      - name: Set permissions GITHUB_OUTPUT
+        run: |
+          ls -ld $GITHUB_OUTPUT
+          sudo chown -R $(id -u):$(id -g) $GITHUB_OUTPUT
+          ls -ld $GITHUB_OUTPUT
+          ls -la $GITHUB_OUTPUT
 
       #- name: Set permissions RUNNER_TEMP
       #  continue-on-error: true
@@ -377,6 +384,7 @@ jobs:
           ls -l $GITHUB_WORKSPACE/output
 
       - name: Upload all APKs as an artifact
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: apks
