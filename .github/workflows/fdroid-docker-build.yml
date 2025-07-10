@@ -41,6 +41,8 @@ jobs:
         continue-on-error: true
         run: |
           docker exec -w /mnt/volume/OsmAnd-submodules mycontainer ./build.sh arm64
+          docker exec -w /mnt/volume/OsmAnd-submodules mycontainer du -sh core/externals/boost
+          docker exec -w /mnt/volume/OsmAnd-submodules mycontainer rm -Rf core/externals/boost
 
       - name: Run gradle
         continue-on-error: true
