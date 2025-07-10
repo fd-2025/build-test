@@ -75,7 +75,9 @@ jobs:
     steps:
       - name: whoami
         #continue-on-error: true
-        run: whoami
+        run: |
+          whoami
+          echo "HOME:" $HOME
 
       - name: Set permissions GITHUB_WORKSPACE
         run: |
@@ -230,6 +232,7 @@ jobs:
 
           which sdkmanager
           ls -l "$(which sdkmanager)"
+          cat "$(which sdkmanager)"
 
           echo "HOME:" $HOME
           
