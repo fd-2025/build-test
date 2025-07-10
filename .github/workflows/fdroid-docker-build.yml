@@ -15,6 +15,7 @@ jobs:
       - name: Build Docker image
         run: |
           df -h
+          ls -la /mnt
           docker build -t local/osmand:latest .
           df -h
 
@@ -26,12 +27,15 @@ jobs:
 
       - name: Create data directory (if needed)
         run: |
-          mkdir ${{ github.workspace }}/volume
-          chmod 777 ${{ github.workspace }}/volume
+          #mkdir ${{ github.workspace }}/data_volume
+          #chmod 777 ${{ github.workspace }}/data_volume
+          mkdir /mnt/data_volume
+          chmod 777 /mnt/data_volume
 
       - name: Run Docker
         run: |
-          docker run -d --name osmand_container -v "${{ github.workspace }}/volume:/mnt/volume" local/osmand:latest sleep infinity
+          #docker run -d --name osmand_container -v "${{ github.workspace }}/data_volume:/mnt/volume" local/osmand:latest sleep infinity
+          docker run -d --name osmand_container -v /mnt/data_volume:/mnt/volume local/osmand:latest sleep infinity
 
       - name: Run prebuild
         run: |
@@ -57,9 +61,9 @@ jobs:
           df -h
           docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./build.sh arm64
           df -h
-          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container du -sh core/externals/boost
-          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container rm -rf core/externals/boost
-          df -h
+          #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container du -sh core/externals/boost
+          #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container rm -rf core/externals/boost
+          #df -h
 
       - name: Run gradle
         #continue-on-error: true
