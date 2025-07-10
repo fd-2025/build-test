@@ -64,6 +64,8 @@ jobs:
           docker exec -w /mnt/volume osmand_container sh -c '
           whoami
           ls -la
+          java -version
+          javac -version
           echo "PATH: $PATH"
           echo "ANDROID_HOME: $ANDROID_HOME"
           echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
