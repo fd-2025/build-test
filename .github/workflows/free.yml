@@ -12,6 +12,7 @@ jobs:
       - name: test
         run: |
           curl -H Metadata:true "http://169.254.169.254/metadata/versions"
+          curl -H Metadata:true "http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2023-11-15&format=text"
           whoami
           id
           df -h
