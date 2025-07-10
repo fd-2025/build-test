@@ -70,6 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: registry.gitlab.com/fdroid/fdroidserver:buildserver-bookworm
+      options: --user vagrant
 
     steps:
       - name: Show GITHUB_WORKSPACE
@@ -156,44 +157,44 @@ jobs:
         #continue-on-error: true
         run: |
           echo "### du:"
-          du -h --max-depth=1 / | sort -h -r
+          sudo du -h --max-depth=1 / | sort -h -r
 
       - name: install
         #continue-on-error: true
         run: |
           echo "### install:"
-          apt-get update
-          apt-get dist-upgrade
+          sudo apt-get update
+          sudo apt-get dist-upgrade
           
-          echo "PATH: $PATH"
-          echo "ANDROID_HOME: $ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
-          echo "ANDROID_SDK: $ANDROID_SDK"
-          echo "ANDROID_NDK: $ANDROID_NDK"
-          echo "FDROIDSERVER: $FDROIDSERVER"
-          echo "PYTHONPATH: $PYTHONPATH"
-          echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
+          sudo echo "PATH: $PATH"
+          sudo echo "ANDROID_HOME: $ANDROID_HOME"
+          sudo echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          sudo echo "ANDROID_SDK: $ANDROID_SDK"
+          sudo echo "ANDROID_NDK: $ANDROID_NDK"
+          sudo echo "FDROIDSERVER: $FDROIDSERVER"
+          sudo echo "PYTHONPATH: $PYTHONPATH"
+          sudo echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
           #echo "GRADLE_OPTS: $GRADLE_OPTS"
           
           mkdir ${FDROIDSERVER}
           git ls-remote https://gitlab.com/fdroid/fdroidserver.git master
           curl --silent https://gitlab.com/fdroid/fdroidserver/-/archive/master/fdroidserver-master.tar.gz | tar -xz --directory=${FDROIDSERVER} --strip-components=1
           
-          apt-get install -y lsb-release tree
+          sudo apt-get install -y lsb-release tree
           #apt-get install -y ant g++ clang build-essential swig
           #apt-get install -y cmake automake zip
           #apt-get install -y byacc libpcre2-dev python-is-python3
           #apt-get install -y openjdk-17-jdk-headless
-          apt-get install -y openjdk-17-jdk-headless build-essential ant cmake clang python-is-python3 wget swig zip
+          sudo apt-get install -y openjdk-17-jdk-headless build-essential ant cmake clang python-is-python3 wget swig zip
           
-          update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+          sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
           which java
           which javac
           ls -la /usr/lib/jvm/java-17-openjdk-amd64/bin/java
           java -version
           javac -version
           
-          sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+          sudo sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
           
           echo "### Disk space after install:"
           df -h
@@ -227,17 +228,14 @@ jobs:
         #continue-on-error: true
         run: |
           echo "### Directory structure from root (/), depth 4:"
-          tree -L 4 /
+          sudo tree -L 4 /
 
       - name: build
         #continue-on-error: true
         run: |
           echo "### Build:"
-          su vagrant
-          whoami #root
+          whoami
           pwd
-          echo "find APK begin:"
-          find ~ -type f -name "*.apk"
           echo "PATH:"
           echo $PATH
           echo "ANDROID_HOME:"
@@ -285,8 +283,6 @@ jobs:
         run: |
           echo "### Build2:"
           whoami
-          #su vagrant
-          #whoami
           pwd
           echo "PATH:"
           echo $PATH
@@ -306,14 +302,14 @@ jobs:
           echo "### Disk space after build:"
           df -h
           
-          whoami
-          echo "find all APKs:"
-          find / -type f -name '*.apk'
+          #echo "find all APKs:"
+          #find / -type f -name '*.apk'
           echo "find APKs:"
-          find / -type f -name 'OsmAnd*.apk'
+          #find / -type f -name 'OsmAnd*.apk'
+          find $GITHUB_WORKSPACE -type f -name 'OsmAnd*.apk'
           echo "find and copy APKs to workspace:"
           mkdir $GITHUB_WORKSPACE/output
-          find / -type f -name 'OsmAnd*.apk' -exec cp {} $GITHUB_WORKSPACE/output/ \;
+          find $GITHUB_WORKSPACE -type f -name 'OsmAnd*.apk' -exec cp {} $GITHUB_WORKSPACE/output/ \;
           ls -l $GITHUB_WORKSPACE/output
 
       - name: Upload all APKs as an artifact
