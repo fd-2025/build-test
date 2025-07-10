@@ -14,11 +14,15 @@ jobs:
 
       - name: Build Docker image
         run: |
+          whoami
           df -h
           ls -la /mnt
+          sudo mkdir /mnt/data_volume
+          sudo chmod 777 /mnt/data_volume
           cat /mnt/DATALOSS_WARNING_README.txt
           docker build -t local/osmand:latest .
           df -h
+          sleep 200
 
       - name: Show total Docker image size
         run: docker images local/osmand:latest
