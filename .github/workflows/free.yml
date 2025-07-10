@@ -1,0 +1,32 @@
+name: free
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: test
+        run: |
+          whoami
+          id
+          df -h
+          ls -la /mnt
+          sudo du -sh /usr/local/lib/android
+          sudo rm -rf /usr/local/lib/android
+          
+          sudo du -sh /usr/share/dotnet
+          sudo rm -rf /usr/share/dotnet
+          
+          sudo du -sh /opt/ghc
+          sudo rm -rf /opt/ghc
+          
+          sudo du -sh /usr/local/.ghcup
+          sudo rm -rf /usr/local/.ghcup
+          
+          df -h
+          sudo docker image prune --all --force
+          df -h
