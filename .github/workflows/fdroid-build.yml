@@ -235,6 +235,9 @@ jobs:
           cat "$(which sdkmanager)"
 
           echo "HOME:" $HOME
+
+          export HOME=$(getent passwd $(whoami) | cut -d: -f6)
+          echo "HOME is now: $HOME"
           
           sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
           
