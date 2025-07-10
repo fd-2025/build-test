@@ -79,9 +79,11 @@ jobs:
           whoami
           echo "HOME:" $HOME
           ls -lad $HOME
+          export HOME=$(getent passwd $(whoami) | cut -d: -f6)
 
       - name: Fix HOME permissions
         run: |
+          echo "HOME test:" $HOME
           sudo chown -R $(id -u):$(id -g) $HOME
           ls -la $HOME
 
