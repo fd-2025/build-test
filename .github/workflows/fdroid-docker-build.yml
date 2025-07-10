@@ -1,0 +1,31 @@
+name: Build, Run and Export Artifact from Docker
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-run-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t myimage:latest .
+
+      - name: Show Docker image layers and their sizes
+        run: docker history --no-trunc --human myimage:latest
+
+      - name: Run command in Docker container and copy file out
+        run: |
+          docker run --name mycontainer myimage:latest sh -c 'echo "hello" > /data/hello.txt'
+          docker run --name mycontainer myimage:latest sh -c 'setup-volume.sh'
+          docker cp mycontainer:/data/hello.txt .
+          docker rm mycontainer
+
+      - name: Upload hello.txt as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-file
+          path: hello.txt
