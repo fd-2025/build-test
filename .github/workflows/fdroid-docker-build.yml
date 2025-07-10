@@ -30,7 +30,7 @@ jobs:
 
           docker exec mycontainer whoami
           docker exec mycontainer sh -c 'echo "hello" > /tmp/hello.txt'
-          docker exec mycontainer setup-volume.sh
+          docker exec -w /mnt/volume mycontainer ./setup-volume.sh
 
           docker stop mycontainer
 
