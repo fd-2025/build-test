@@ -47,15 +47,14 @@ jobs:
         run: |
           docker exec -w /mnt/volume osmand_container sh -c '
           whoami
-          ls -ld . && \
-          ls -la && \
-          echo "PATH: $PATH" && \
-          echo "ANDROID_HOME: $ANDROID_HOME" && \
-          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT" && \
-          echo "ANDROID_SDK: $ANDROID_SDK" && \
-          echo "ANDROID_NDK: $ANDROID_NDK" && \
-          echo "FDROIDSERVER: $FDROIDSERVER" && \
-          echo "PYTHONPATH: $PYTHONPATH" && \
+          ls -la
+          echo "PATH: $PATH"
+          echo "ANDROID_HOME: $ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT: $ANDROID_SDK_ROOT"
+          echo "ANDROID_SDK: $ANDROID_SDK"
+          echo "ANDROID_NDK: $ANDROID_NDK"
+          echo "FDROIDSERVER: $FDROIDSERVER"
+          echo "PYTHONPATH: $PYTHONPATH"
           echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
           '
           docker exec -w /mnt/volume osmand_container setup-volume.sh
