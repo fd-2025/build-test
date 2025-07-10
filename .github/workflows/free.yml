@@ -22,16 +22,11 @@ jobs:
           sudo du -sh /usr/local/lib/android
           sudo rm -rf /usr/local/lib/android
           df -h
-          
-          #sudo du -sh /usr/share/dotnet
-          #sudo rm -rf /usr/share/dotnet
-          
-          sudo du -sh /opt/ghc
-          sudo rm -rf /opt/ghc
-          
           sudo du -sh /usr/local/.ghcup
           sudo rm -rf /usr/local/.ghcup
-          
+          df -h
+          sudo du -sh /opt/hostedtoolcache
+          sudo rm -rf /opt/hostedtoolcache
           df -h
           sudo docker image prune --all --force
           df -h
