@@ -15,14 +15,18 @@ jobs:
       - name: Build Docker image
         run: docker build -t myimage:latest .
 
+      - name: Show total Docker image size
+        run: docker images myimage:latest
+
       - name: Show Docker image layers and their sizes
         run: docker history --no-trunc --human myimage:latest
 
       - name: Run command in Docker container and copy file out
         run: |
-          docker run --name mycontainer myimage:latest sh -c 'echo "hello" > /data/hello.txt'
+          docker run --name mycontainer myimage:latest sh -c 'whoami'
+          docker run --name mycontainer myimage:latest sh -c 'echo "hello" > /tmp/hello.txt'
           docker run --name mycontainer myimage:latest sh -c 'setup-volume.sh'
-          docker cp mycontainer:/data/hello.txt .
+          docker cp mycontainer:/tmp/hello.txt .
           docker rm mycontainer
 
       - name: Upload hello.txt as artifact
