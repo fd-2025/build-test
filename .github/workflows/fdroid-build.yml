@@ -79,11 +79,9 @@ jobs:
           whoami
           echo "HOME:" $HOME
           ls -lad $HOME
-          export HOME=$(getent passwd $(whoami) | cut -d: -f6)
 
       - name: Fix HOME permissions
         run: |
-          echo "HOME test:" $HOME
           sudo chown -R $(id -u):$(id -g) $HOME
           ls -la $HOME
 
@@ -166,6 +164,10 @@ jobs:
           sudo sh -c 'echo "PYTHONPATH=/home/vagrant/fdroidserver:/home/vagrant/fdroidserver/examples" >> '"$GITHUB_ENV"
           sudo sh -c 'echo "PYTHONUNBUFFERED=true" >> '"$GITHUB_ENV"
           #sudo sh -c 'echo "GRADLE_OPTS=-Xmx4096m" >> '"$GITHUB_ENV"
+
+          HOME_NEW=$(getent passwd $(whoami) | cut -d: -f6)
+          echo "new HOME: $HOME_NEW"
+          sudo sh -c "echo HOME=$HOME_NEW >> $GITHUB_ENV"
 
       - name: Show current working directory
         #continue-on-error: true
