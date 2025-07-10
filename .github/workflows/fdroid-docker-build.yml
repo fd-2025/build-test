@@ -22,7 +22,9 @@ jobs:
         run: docker history --no-trunc --human myimage:latest
 
       - name: Create data directory (if needed)
-        run: mkdir -p ${{ github.workspace }}/volume
+        run: |
+          mkdir ${{ github.workspace }}/volume
+          chmod 777 ${{ github.workspace }}/volume
 
       - name: Run command in Docker container and copy file out
         run: |
