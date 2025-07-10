@@ -232,14 +232,18 @@ jobs:
 
           which sdkmanager
           ls -l "$(which sdkmanager)"
-          cat "$(which sdkmanager)"
+          #cat "$(which sdkmanager)"
 
           echo "HOME:" $HOME
 
-          export HOME=$(getent passwd $(whoami) | cut -d: -f6)
-          echo "HOME is now: $HOME"
+          #export HOME=$(getent passwd $(whoami) | cut -d: -f6)
+          #echo "HOME is now: $HOME"
           
-          sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+          #sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
+
+          HOME_TMP=$(getent passwd $(whoami) | cut -d: -f6)
+          echo "HOME_TMP: $HOME_TMP"
+          HOME=$HOME_TMP sdkmanager "platform-tools" "build-tools;31.0.0" "ndk;r23c"
           
           echo "### Disk space after install:"
           df -h
