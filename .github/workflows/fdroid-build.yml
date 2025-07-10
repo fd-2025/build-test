@@ -6,7 +6,7 @@ on:
 
 jobs:
   show-system-info:
-    #if: false
+    if: false
     runs-on: ubuntu-latest
 
     steps:
@@ -85,6 +85,7 @@ jobs:
           ls -la $GITHUB_WORKSPACE
 
       - name: Set permissions RUNNER_TEMP
+        continue-on-error: true
         run: |
           ls -ld /home/runner/work/_temp/
           sudo chown -R $(id -u):$(id -g) /home/runner/work/_temp/
@@ -138,6 +139,7 @@ jobs:
           ls -la $RUNNER_TEMP
 
       - name: Upload artifact
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: hello-file
