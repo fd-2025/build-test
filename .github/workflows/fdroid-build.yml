@@ -118,6 +118,24 @@ jobs:
         #continue-on-error: true
         run: ls -l $RUNNER_TEMP
 
+      - name: Set environment variables
+        run: |
+          echo "GITHUB_ENV:" $GITHUB_ENV
+          sudo sh -c 'echo "ANDROID_HOME=/opt/android-sdk" >> '"$GITHUB_ENV"
+          sudo sh -c 'echo "ANDROID_HOME=/opt/android-sdk" >> '"$GITHUB_ENV"
+          sudo sh -c 'echo "ANDROID_SDK_ROOT=/opt/android-sdk" >> '"$GITHUB_ENV"
+          sudo sh -c 'echo "ANDROID_SDK=/opt/android-sdk" >> '"$GITHUB_ENV"
+          sudo sh -c 'echo "ANDROID_NDK=/opt/android-sdk/ndk/23.2.8568313" >> '"$GITHUB_ENV"
+          sudo sh -c 'echo "FDROIDSERVER=/home/vagrant/fdroidserver" >> '"$GITHUB_ENV"
+          sudo sh -c 'echo "PATH=/opt/gradle/bin:/home/vagrant/fdroidserver:${PATH}" >> '"$GITHUB_ENV"
+          sudo sh -c 'echo "PYTHONPATH=/home/vagrant/fdroidserver:/home/vagrant/fdroidserver/examples" >> '"$GITHUB_ENV"
+          sudo sh -c 'echo "PYTHONUNBUFFERED=true" >> '"$GITHUB_ENV"
+          #sudo sh -c 'echo "GRADLE_OPTS=-Xmx4096m" >> '"$GITHUB_ENV"
+
+          HOME_NEW=$(getent passwd $(whoami) | cut -d: -f6)
+          echo "new HOME: $HOME_NEW"
+          sudo sh -c "echo HOME=$HOME_NEW >> $GITHUB_ENV"
+
       #- name: Checkout repository
         #continue-on-error: true
         #uses: actions/checkout@v4
@@ -155,24 +173,6 @@ jobs:
         with:
           name: hello-file
           path: ${{ github.workspace }}/hello.txt
-
-      - name: Set environment variables
-        run: |
-          echo "GITHUB_ENV:" $GITHUB_ENV
-          sudo sh -c 'echo "ANDROID_HOME=/opt/android-sdk" >> '"$GITHUB_ENV"
-          sudo sh -c 'echo "ANDROID_HOME=/opt/android-sdk" >> '"$GITHUB_ENV"
-          sudo sh -c 'echo "ANDROID_SDK_ROOT=/opt/android-sdk" >> '"$GITHUB_ENV"
-          sudo sh -c 'echo "ANDROID_SDK=/opt/android-sdk" >> '"$GITHUB_ENV"
-          sudo sh -c 'echo "ANDROID_NDK=/opt/android-sdk/ndk/23.2.8568313" >> '"$GITHUB_ENV"
-          sudo sh -c 'echo "FDROIDSERVER=/home/vagrant/fdroidserver" >> '"$GITHUB_ENV"
-          sudo sh -c 'echo "PATH=/opt/gradle/bin:/home/vagrant/fdroidserver:${PATH}" >> '"$GITHUB_ENV"
-          sudo sh -c 'echo "PYTHONPATH=/home/vagrant/fdroidserver:/home/vagrant/fdroidserver/examples" >> '"$GITHUB_ENV"
-          sudo sh -c 'echo "PYTHONUNBUFFERED=true" >> '"$GITHUB_ENV"
-          #sudo sh -c 'echo "GRADLE_OPTS=-Xmx4096m" >> '"$GITHUB_ENV"
-
-          HOME_NEW=$(getent passwd $(whoami) | cut -d: -f6)
-          echo "new HOME: $HOME_NEW"
-          sudo sh -c "echo HOME=$HOME_NEW >> $GITHUB_ENV"
 
       - name: Show current working directory
         #continue-on-error: true
