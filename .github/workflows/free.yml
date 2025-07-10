@@ -19,14 +19,16 @@ jobs:
 
           df -h
           echo "rm android"
-          sudo du -sh /usr/local/lib/android
+          sudo du -sh /usr/local/lib/android || true
           sudo rm -rf /usr/local/lib/android
           df -h
-          sudo du -sh /usr/local/.ghcup
+          sudo du -sh /usr/local/.ghcup || true
           sudo rm -rf /usr/local/.ghcup
+          echo "test1"
+          sudo du -sh /usr12333 || true
+          sudo rm -rf /usr12333
+          echo "test2"
           df -h
-          sudo du -sh /opt/hostedtoolcache
+          sudo du -sh /opt/hostedtoolcache || true
           sudo rm -rf /opt/hostedtoolcache
-          df -h
-          sudo docker image prune --all --force
           df -h
