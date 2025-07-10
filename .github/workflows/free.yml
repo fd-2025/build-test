@@ -15,7 +15,7 @@ jobs:
           id
           df -h
           ls -la /mnt
-          sudo du -h --max-depth=5 / | sort -hr | head -n 50
+          #sudo du -h --max-depth=5 / | sort -hr | head -n 50
 
           df -h
           echo "rm android"
