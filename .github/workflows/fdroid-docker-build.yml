@@ -52,7 +52,8 @@ jobs:
           #mkdir ${{ github.workspace }}/data_volume
           #chmod 777 ${{ github.workspace }}/data_volume
           sudo mkdir /mnt/data_volume
-          sudo chmod 777 /mnt/data_volume
+          #sudo chmod 777 /mnt/data_volume
+          sudo setfacl -m u:1000:rwx,g:1000:rwx /mnt/data_volume
 
       - name: Run Docker
         run: |
