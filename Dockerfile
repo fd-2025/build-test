@@ -2,7 +2,7 @@ FROM registry.gitlab.com/fdroid/fdroidserver:buildserver-bookworm
 ENV ANDROID_HOME=/opt/android-sdk
 ENV ANDROID_SDK_ROOT=${ANDROID_HOME}
 ENV ANDROID_SDK=${ANDROID_HOME}
-ENV ANDROID_NDK=/opt/android-ndk-r23c
+#ENV ANDROID_NDK=/opt/android-ndk-r23c
 ENV FDROIDSERVER=/home/vagrant/fdroidserver
 ENV PATH="/opt/gradle/bin:${FDROIDSERVER}:${PATH}"
 ENV PYTHONPATH="${FDROIDSERVER}:${FDROIDSERVER}/examples"
