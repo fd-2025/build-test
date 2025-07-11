@@ -63,6 +63,7 @@ jobs:
         run: |
           docker exec -w /mnt/volume osmand_container sh -c '
           whoami
+          id
           ls -la
           java -version
           javac -version
