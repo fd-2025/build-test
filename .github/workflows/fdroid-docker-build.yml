@@ -53,7 +53,10 @@ jobs:
           #chmod 777 ${{ github.workspace }}/data_volume
           sudo mkdir /mnt/data_volume
           #sudo chmod 777 /mnt/data_volume
+          sudo ls -ld /mnt/data_volume
+          id
           sudo setfacl -m u:1000:rwx,g:1000:rwx /mnt/data_volume
+          sudo getfacl /mnt/data_volume
 
       - name: Run Docker
         run: |
@@ -65,7 +68,9 @@ jobs:
           docker exec -w /mnt/volume osmand_container sh -c '
           whoami
           id
+          pwd
           ls -la
+          getfacl /mnt/volume
           java -version
           javac -version
           echo "PATH: $PATH"
