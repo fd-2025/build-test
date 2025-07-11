@@ -71,6 +71,7 @@ jobs:
           id
           pwd
           ls -la
+          sudo apt-get install acl
           getfacl -p /mnt/volume
           getfacl -n -p /mnt/volume
           java -version
