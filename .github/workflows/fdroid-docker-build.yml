@@ -55,7 +55,7 @@ jobs:
           #sudo chmod 777 /mnt/data_volume
           sudo ls -ld /mnt/data_volume
           id
-          sudo setfacl -m u:1000:rwx,g:1000:rwx /mnt/data_volume
+          #sudo setfacl -m u:1000:rwx,g:1000:rwx /mnt/data_volume
           sudo getfacl /mnt/data_volume
 
       - name: Run Docker
