@@ -13,7 +13,6 @@ RUN curl --silent https://gitlab.com/fdroid/fdroidserver/-/archive/master/fdroid
 RUN sdkmanager "platform-tools" "build-tools;31.0.0"
 WORKDIR /
 RUN curl "https://dl.google.com/android/repository/android-ndk-r23c-linux.zip" --output android-ndk-r23c-linux.zip && unzip android-ndk-r23c-linux.zip -d /opt/ && rm android-ndk-r23c-linux.zip
-#RUN unzip android-ndk-r23c-linux -d /opt/
 COPY setup-volume.sh /usr/bin/setup-volume.sh
 RUN chmod +x /usr/bin/setup-volume.sh
 USER vagrant
