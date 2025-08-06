@@ -87,8 +87,8 @@ jobs:
           echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
           '
           docker exec -w /mnt/volume osmand_container setup-volume.sh
-          #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./prebuild.sh "5.1.7" "5107" arm64
-          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./prebuild.sh "5.1.7" "5107"
+          #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./prebuild.sh "5.1.8" "5108" arm64
+          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./prebuild.sh "5.1.8" "5108"
 
       - name: Run build
         #continue-on-error: true

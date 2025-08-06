@@ -306,7 +306,7 @@ jobs:
           echo $ANDROID_HOME
           echo "ANDROID_SDK_ROOT:"
           echo $ANDROID_SDK_ROOT
-          git clone --branch v5.1.5 --depth 1 https://github.com/fd-2025/OsmAnd-submodules.git #https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
+          git clone --branch v5.1.8 --depth 1 https://github.com/fd-2025/OsmAnd-submodules.git #https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
           cd OsmAnd-submodules
           git submodule init
           git submodule update --depth 1
@@ -324,8 +324,8 @@ jobs:
           
           #HOME_TMP=$(getent passwd $(whoami) | cut -d: -f6)
           #echo "HOME_TMP: $HOME_TMP"
-          #HOME=$HOME_TMP ./prebuild.sh "5.1.4" "510403" arm64
-          ./prebuild.sh "5.1.4" "510403" arm64
+          #HOME=$HOME_TMP ./prebuild.sh "5.1.8" "510803" arm64
+          ./prebuild.sh "5.1.8" "510803" arm64
           ./build.sh arm64
           
           echo "### Disk space mid build:"

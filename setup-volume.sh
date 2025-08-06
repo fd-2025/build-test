@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #git clone https://gitlab.com/f-droid-mirrors/OsmAnd-submodules.git
-git clone --branch v5.1.7 https://github.com/fd-2025/OsmAnd-submodules.git
+git clone --branch v5.1.8 https://github.com/fd-2025/OsmAnd-submodules.git
 pushd OsmAnd-submodules
 git submodule init
 git submodule update --depth 1
