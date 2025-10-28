@@ -31,6 +31,8 @@ jobs:
           #sudo du -sh /opt/hostedtoolcache || true
           sudo rm -rf /opt/hostedtoolcache
           df -h
+          sudo tune2fs -m 0 "$(findmnt -n -o SOURCE --target /mnt)"
+          df -h
 
       - name: Checkout code
         uses: actions/checkout@v4
