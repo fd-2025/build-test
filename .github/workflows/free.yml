@@ -31,3 +31,32 @@ jobs:
           sudo du -sh /opt/hostedtoolcache || true
           sudo rm -rf /opt/hostedtoolcache
           df -h
+
+          VG_NAME=buildvg
+          BUILD_MOUNT_PATH=/mnt/data_volume
+
+          sudo mkdir -p "${BUILD_MOUNT_PATH}"
+
+          echo "Creating LVM Volume"
+          echo "-- Creating LVM PV on root fs"
+          # create loop pv image on root fs
+          sudo touch /pv.img && sudo fallocate -z -l 21474836480 /pv.img
+          export ROOT_LOOP_DEV=$(sudo losetup --find --show /pv.img)
+          sudo pvcreate -f "${ROOT_LOOP_DEV}"
+
+          # create pv on temp disk
+          echo "-- Creating LVM PV on temp fs"
+          sudo touch /pv.img && sudo fallocate -z -l 75161927680 /mnt/pv.img
+          export MNT_LOOP_DEV=$(sudo losetup --find --show /pv.img)
+          sudo pvcreate -f "${MNT_LOOP_DEV}"
+
+          # create volume group from these pvs
+          sudo vgcreate "${VG_NAME}" "${MNT_LOOP_DEV}" "${ROOT_LOOP_DEV}"
+
+          echo "Creating build volume"
+          # create and mount build volume
+          sudo lvcreate -l 100%FREE -n buildlv "${VG_NAME}"
+          sudo mkfs.ext4 -Enodiscard -m0 "/dev/mapper/${VG_NAME}-buildlv"
+          sudo mount "/dev/mapper/${VG_NAME}-buildlv" "${BUILD_MOUNT_PATH}"
+
+          df -h
