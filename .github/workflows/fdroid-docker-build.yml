@@ -119,9 +119,9 @@ jobs:
 
       - name: Test gradle docker
         run: |
-          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ls -la /opt/gradle/bin/gradle
-          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ls -la /home/vagrant/fdroidserver
-          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ls -la /home/vagrant/gradlew-fdroid/gradlew-fdroid
+          docker exec osmand_container ls -la /opt/gradle/bin/gradle
+          docker exec osmand_container ls -la /home/vagrant/fdroidserver
+          docker exec osmand_container ls -la /home/vagrant/gradlew-fdroid/gradlew-fdroid
 
       - name: Run prebuild
         run: |
