@@ -184,7 +184,6 @@ jobs:
         with:
           name: apk-file
           #path: ${{ github.workspace }}/volume/**/OsmAnd*.apk
-          path: /mnt/data_volume/**/OsmAnd*.apk
           path: |
             /mnt/data_volume/**/OsmAnd*.apk
             !/mnt/data_volume/lost+found/**
