@@ -37,7 +37,6 @@ jobs:
           ROOT_PV_PATH=/pv.img
           MNT_PV_PATH=/mnt/pv.img
           ROOT_BYTES=21474836480
-          MNT_RESERVED_MB=128
 
           sudo mkdir -p "${BUILD_MOUNT_PATH}"
 
@@ -51,7 +50,7 @@ jobs:
           # create pv on mnt disk
           echo "-- Creating LVM PV on mnt fs"
           
-          MNT_RESERVE_KB=$(expr ${{ MNT_RESERVED_MB }} \* 1024)
+          MNT_RESERVE_KB=131072
           MNT_FREE_KB=$(df --block-size=1024 --output=avail /mnt | tail -1)
           MNT_LVM_SIZE_KB=$(expr $MNT_FREE_KB - $MNT_RESERVE_KB)
           MNT_LVM_SIZE_BYTES=$(expr $MNT_LVM_SIZE_KB \* 1024)
