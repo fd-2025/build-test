@@ -44,10 +44,10 @@ jobs:
           export ROOT_LOOP_DEV=$(sudo losetup --find --show /pv.img)
           sudo pvcreate -f "${ROOT_LOOP_DEV}"
 
-          # create pv on temp disk
-          echo "-- Creating LVM PV on temp fs"
-          sudo touch /pv.img && sudo fallocate -z -l 75161927680 /mnt/pv.img
-          export MNT_LOOP_DEV=$(sudo losetup --find --show /pv.img)
+          # create pv on mnt disk
+          echo "-- Creating LVM PV on mnt fs"
+          sudo touch /mnt/pv.img && sudo fallocate -z -l 75161927680 /mnt/pv.img
+          export MNT_LOOP_DEV=$(sudo losetup --find --show /mnt/pv.img)
           sudo pvcreate -f "${MNT_LOOP_DEV}"
 
           # create volume group from these pvs
