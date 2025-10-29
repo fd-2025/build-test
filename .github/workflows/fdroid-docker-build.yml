@@ -15,6 +15,8 @@ jobs:
           id
           df -h
           ls -la /mnt
+          lscpu
+          free -h
           #curl -sS -H Metadata:true "http://169.254.169.254/metadata/versions"
           echo "Azure VM:"
           curl -sS -H Metadata:true "http://169.254.169.254/metadata/instance/compute/vmSize?api-version=2023-11-15&format=text"
