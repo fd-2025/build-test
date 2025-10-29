@@ -56,7 +56,7 @@ jobs:
           MNT_LVM_SIZE_BYTES=$(expr $MNT_LVM_SIZE_KB \* 1024)
           
           sudo touch "${MNT_PV_PATH}" && sudo fallocate -z -l "${MNT_LVM_SIZE_BYTES}" "${MNT_PV_PATH}"
-          export MNT_LOOP_DEV=$(sudo losetup --find --show "${MNT_PV_PATH})
+          export MNT_LOOP_DEV=$(sudo losetup --find --show "${MNT_PV_PATH}")
           sudo pvcreate -f "${MNT_LOOP_DEV}"
 
           # create volume group from these pvs
