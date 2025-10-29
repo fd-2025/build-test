@@ -36,21 +36,27 @@ jobs:
           BUILD_MOUNT_PATH=/mnt/data_volume
           ROOT_PV_PATH=/pv.img
           MNT_PV_PATH=/mnt/pv.img
-          MNT_BYTES=21474836480
-          ROOT_BYTES=75161927680
+          ROOT_BYTES=21474836480
+          MNT_RESERVED_MB=128
 
           sudo mkdir -p "${BUILD_MOUNT_PATH}"
 
           echo "Creating LVM Volume"
           echo "-- Creating LVM PV on root fs"
           # create loop pv image on root fs
-          sudo touch "${ROOT_MOUNT_PATH}" && sudo fallocate -z -l "${MNT_BYTES}" "${ROOT_MOUNT_PATH}"
+          sudo touch "${ROOT_MOUNT_PATH}" && sudo fallocate -z -l "${ROOT_BYTES}" "${ROOT_MOUNT_PATH}"
           export ROOT_LOOP_DEV=$(sudo losetup --find --show "${ROOT_MOUNT_PATH}")
           sudo pvcreate -f "${ROOT_LOOP_DEV}"
 
           # create pv on mnt disk
           echo "-- Creating LVM PV on mnt fs"
-          sudo touch "${MNT_MOUNT_PATH} && sudo fallocate -z -l "${ROOT_BYTES}" "${MNT_MOUNT_PATH}"
+          
+          MNT_RESERVE_KB=$(expr ${{ MNT_RESERVED_MB }} \* 1024)
+          MNT_FREE_KB=$(df --block-size=1024 --output=avail /mnt | tail -1)
+          MNT_LVM_SIZE_KB=$(expr $MNT_FREE_KB - $MNT_RESERVE_KB)
+          MNT_LVM_SIZE_BYTES=$(expr $MNT_LVM_SIZE_KB \* 1024)
+          
+          sudo touch "${MNT_MOUNT_PATH} && sudo fallocate -z -l "${MNT_LVM_SIZE_BYTES}" "${MNT_MOUNT_PATH}"
           export MNT_LOOP_DEV=$(sudo losetup --find --show "${MNT_MOUNT_PATH})
           sudo pvcreate -f "${MNT_LOOP_DEV}"
 
