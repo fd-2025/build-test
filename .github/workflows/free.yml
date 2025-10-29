@@ -34,20 +34,24 @@ jobs:
 
           VG_NAME=buildvg
           BUILD_MOUNT_PATH=/mnt/data_volume
+          ROOT_PV_PATH=/pv.img
+          MNT_PV_PATH=/mnt/pv.img
+          MNT_BYTES=21474836480
+          ROOT_BYTES=75161927680
 
           sudo mkdir -p "${BUILD_MOUNT_PATH}"
 
           echo "Creating LVM Volume"
           echo "-- Creating LVM PV on root fs"
           # create loop pv image on root fs
-          sudo touch /pv.img && sudo fallocate -z -l 21474836480 /pv.img
-          export ROOT_LOOP_DEV=$(sudo losetup --find --show /pv.img)
+          sudo touch "${ROOT_MOUNT_PATH}" && sudo fallocate -z -l "${MNT_BYTES}" "${ROOT_MOUNT_PATH}"
+          export ROOT_LOOP_DEV=$(sudo losetup --find --show "${ROOT_MOUNT_PATH}")
           sudo pvcreate -f "${ROOT_LOOP_DEV}"
 
           # create pv on mnt disk
           echo "-- Creating LVM PV on mnt fs"
-          sudo touch /mnt/pv.img && sudo fallocate -z -l 75161927680 /mnt/pv.img
-          export MNT_LOOP_DEV=$(sudo losetup --find --show /mnt/pv.img)
+          sudo touch "${MNT_MOUNT_PATH} && sudo fallocate -z -l "${ROOT_BYTES}" "${MNT_MOUNT_PATH}"
+          export MNT_LOOP_DEV=$(sudo losetup --find --show "${MNT_MOUNT_PATH})
           sudo pvcreate -f "${MNT_LOOP_DEV}"
 
           # create volume group from these pvs
