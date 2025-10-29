@@ -36,6 +36,54 @@ jobs:
           sudo tune2fs -m 0 "$(findmnt -n -o SOURCE --target /mnt)"
           df -h
 
+      - name: LVM
+        run: |
+          df -h
+          VG_NAME=buildvg
+          BUILD_MOUNT_PATH=/mnt/data_volume
+          ROOT_PV_PATH=/pv.img
+          MNT_PV_PATH=/mnt/pv.img
+          ROOT_BYTES=21474836480
+          MNT_RESERVED_MB=128
+          ROOT_RESERVED_MB=24576
+
+          sudo mkdir -p "${BUILD_MOUNT_PATH}"
+
+          echo "Creating LVM Volume"
+          echo "-- Creating LVM PV on root fs"
+          # create loop PV image on root fs
+          ROOT_RESERVED_KB=$(expr ${ROOT_RESERVED_MB} \* 1024)
+          ROOT_FREE_KB=$(df --block-size=1024 --output=avail / | tail -1)
+          ROOT_LVM_SIZE_KB=$(expr $ROOT_FREE_KB - $ROOT_RESERVED_KB)
+          ROOT_LVM_SIZE_BYTES=$(expr $ROOT_LVM_SIZE_KB \* 1024)
+
+          sudo touch "${ROOT_PV_PATH}" && sudo fallocate -z -l "${ROOT_LVM_SIZE_BYTES}" "${ROOT_PV_PATH}"
+          export ROOT_LOOP_DEV=$(sudo losetup --find --show "${ROOT_PV_PATH}")
+          sudo pvcreate -f "${ROOT_LOOP_DEV}"
+
+          # create PV on mnt disk
+          echo "-- Creating LVM PV on mnt fs"
+
+          MNT_RESERVE_KB=$(expr ${MNT_RESERVED_MB} \* 1024)
+          MNT_FREE_KB=$(df --block-size=1024 --output=avail /mnt | tail -1)
+          MNT_LVM_SIZE_KB=$(expr $MNT_FREE_KB - $MNT_RESERVE_KB)
+          MNT_LVM_SIZE_BYTES=$(expr $MNT_LVM_SIZE_KB \* 1024)
+
+          sudo touch "${MNT_PV_PATH}" && sudo fallocate -z -l "${MNT_LVM_SIZE_BYTES}" "${MNT_PV_PATH}"
+          export MNT_LOOP_DEV=$(sudo losetup --find --show "${MNT_PV_PATH}")
+          sudo pvcreate -f "${MNT_LOOP_DEV}"
+
+          # create volume group from these PVs
+          sudo vgcreate "${VG_NAME}" "${MNT_LOOP_DEV}" "${ROOT_LOOP_DEV}"
+
+          echo "Creating build volume"
+          # create and mount build volume
+          sudo lvcreate -l 100%FREE -n buildlv "${VG_NAME}"
+          sudo mkfs.ext4 -Enodiscard -m0 "/dev/mapper/${VG_NAME}-buildlv"
+          sudo mount "/dev/mapper/${VG_NAME}-buildlv" "${BUILD_MOUNT_PATH}"
+
+          df -h
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -91,25 +139,25 @@ jobs:
           echo "PYTHONUNBUFFERED: $PYTHONUNBUFFERED"
           '
           docker exec -w /mnt/volume osmand_container setup-volume.sh
-          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./prebuild.sh "5.2.6" "5206" arm64
-          #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./prebuild.sh "5.2.6" "5206"
+          #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./prebuild.sh "5.2.6" "5206" arm64
+          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./prebuild.sh "5.2.6" "5206"
 
       - name: Run build
         #continue-on-error: true
         run: |
           df -h
-          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./build.sh arm64
-          #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./build.sh
+          #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./build.sh arm64
+          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container ./build.sh
           df -h
           #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container du -sh core/externals/boost
-          docker exec -w /mnt/volume/OsmAnd-submodules osmand_container rm -rf core/externals/boost
+          #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container rm -rf core/externals/boost
           df -h
 
       - name: Run gradle
         #continue-on-error: true
         run: |
-          docker exec -w /mnt/volume/OsmAnd-submodules/android/OsmAnd osmand_container gradle assembleAndroidFullOpenglArm64Release
-          #docker exec -w /mnt/volume/OsmAnd-submodules/android/OsmAnd osmand_container gradle assembleAndroidFullOpenglFatRelease
+          #docker exec -w /mnt/volume/OsmAnd-submodules/android/OsmAnd osmand_container gradle assembleAndroidFullOpenglArm64Release
+          docker exec -w /mnt/volume/OsmAnd-submodules/android/OsmAnd osmand_container gradle assembleAndroidFullOpenglFatRelease
           df -h
 
       - name: Run stop Docker
