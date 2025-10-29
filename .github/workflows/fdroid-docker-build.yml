@@ -103,7 +103,7 @@ jobs:
         run: |
           #mkdir ${{ github.workspace }}/data_volume
           #chmod 777 ${{ github.workspace }}/data_volume
-          sudo mkdir /mnt/data_volume
+          sudo mkdir -p /mnt/data_volume
           #sudo chmod 777 /mnt/data_volume
           sudo chown 1000:1000 /mnt/data_volume ###
           sudo ls -ld /mnt/data_volume
