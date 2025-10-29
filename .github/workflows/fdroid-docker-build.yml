@@ -43,7 +43,7 @@ jobs:
           BUILD_MOUNT_PATH=/mnt/data_volume
           ROOT_PV_PATH=/pv.img
           MNT_PV_PATH=/mnt/pv.img
-          ROOT_BYTES=21474836480
+          ROOT_BYTES=16106127360
           MNT_RESERVED_MB=128
           ROOT_RESERVED_MB=24576
 
@@ -105,7 +105,7 @@ jobs:
           #chmod 777 ${{ github.workspace }}/data_volume
           sudo mkdir -p /mnt/data_volume
           #sudo chmod 777 /mnt/data_volume
-          sudo chown 1000:1000 /mnt/data_volume ###
+          sudo chown -R 1000:1000 /mnt/data_volume ###
           sudo ls -ld /mnt/data_volume
           id
           ###sudo setfacl -m u:1000:rwx,g:1000:rwx /mnt/data_volume
