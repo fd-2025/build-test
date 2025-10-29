@@ -45,9 +45,9 @@ jobs:
           echo "Creating LVM Volume"
           echo "-- Creating LVM PV on root fs"
           # create loop pv image on root fs
-          ROOT_RESERVE_KB=$(expr ${ROOT_RESERVED_MB} \* 1024)
-          ROOT_FREE_KB=$(df --block-size=1024 --output=avail /mnt | tail -1)
-          ROOT_LVM_SIZE_KB=$(expr $ROOT_FREE_KB - $ROOT_RESERVE_KB)
+          ROOT_RESERVED_KB=$(expr ${ROOT_RESERVED_MB} \* 1024)
+          ROOT_FREE_KB=$(df --block-size=1024 --output=avail / | tail -1)
+          ROOT_LVM_SIZE_KB=$(expr $ROOT_FREE_KB - $ROOT_RESERVED_KB)
           ROOT_LVM_SIZE_BYTES=$(expr $ROOT_LVM_SIZE_KB \* 1024)
 
           sudo touch "${ROOT_PV_PATH}" && sudo fallocate -z -l "${ROOT_LVM_SIZE_BYTES}" "${ROOT_PV_PATH}"
