@@ -158,7 +158,7 @@ jobs:
           df -h
           #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container du -sh core/externals/boost
           #docker exec -w /mnt/volume/OsmAnd-submodules osmand_container rm -rf core/externals/boost
-          df -h
+          #df -h
 
       - name: Run gradle
         #continue-on-error: true
